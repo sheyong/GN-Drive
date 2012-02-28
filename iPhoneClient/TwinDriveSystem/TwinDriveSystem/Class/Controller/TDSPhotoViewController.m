@@ -10,6 +10,8 @@
 #import "TDSPhotoView.h"
 #import "TDSPhotoModel.h"
 
+#define ONCE_REQUEST_COUNT_LIMIT 3
+
 @implementation TDSPhotoViewController
 
 #pragma mark - Public Function
@@ -25,7 +27,7 @@
     [photo3 release];
     //  load photoviews lazily
     
-    for (unsigned i = 0; i < 3; i++) {
+    for (unsigned i = 0; i < ONCE_REQUEST_COUNT_LIMIT; i++) {
         [self.photoViews addObject:[NSNull null]];
     }
     if ([self respondsToSelector:@selector(setupScrollViewContentSize)]) {
@@ -70,6 +72,11 @@
     [super viewDidLoad];
 
 
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    TDSPhotoModel *photoModel = [[TDSPhotoModel alloc] init];
 }
 
 - (void)viewDidUnload

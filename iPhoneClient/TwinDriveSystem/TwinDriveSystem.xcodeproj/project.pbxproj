@@ -73,6 +73,10 @@
 		2F7F5D9814E7C3450010F670 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F7F5D9514E7C3450010F670 /* icon.png */; };
 		2F7F5D9914E7C3450010F670 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F7F5D9614E7C3450010F670 /* icon@2x.png */; };
 		2F8B058E14E96F36003731A4 /* libsbjson-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F8B057814E96BC5003731A4 /* libsbjson-ios.a */; };
+		2FB05F1414FD0B7200AD77AB /* TDSNetControlCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB05F1314FD0B7200AD77AB /* TDSNetControlCenter.m */; };
+		2FB05F1814FD0FF700AD77AB /* TDSRequestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB05F1714FD0FF700AD77AB /* TDSRequestObject.m */; };
+		2FB05F2114FD1F4E00AD77AB /* TDSMainScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB05F2014FD1F4E00AD77AB /* TDSMainScreenViewController.m */; };
+		2FB05F4114FD556D00AD77AB /* TDSMainScreenTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB05F4014FD556D00AD77AB /* TDSMainScreenTabBar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -229,6 +233,15 @@
 		2F7F5D9514E7C3450010F670 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = SOURCE_ROOT; };
 		2F7F5D9614E7C3450010F670 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = SOURCE_ROOT; };
 		2F8B056914E96BC5003731A4 /* SBJson.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SBJson.xcodeproj; path = TwinDriveSystem/Dependencies/SBJson/SBJson.xcodeproj; sourceTree = "<group>"; };
+		2FB05F1214FD0B7200AD77AB /* TDSNetControlCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSNetControlCenter.h; sourceTree = "<group>"; };
+		2FB05F1314FD0B7200AD77AB /* TDSNetControlCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSNetControlCenter.m; sourceTree = "<group>"; };
+		2FB05F1614FD0FF700AD77AB /* TDSRequestObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSRequestObject.h; sourceTree = "<group>"; };
+		2FB05F1714FD0FF700AD77AB /* TDSRequestObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSRequestObject.m; sourceTree = "<group>"; };
+		2FB05F1F14FD1F4E00AD77AB /* TDSMainScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSMainScreenViewController.h; sourceTree = "<group>"; };
+		2FB05F2014FD1F4E00AD77AB /* TDSMainScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSMainScreenViewController.m; sourceTree = "<group>"; };
+		2FB05F3B14FD509600AD77AB /* TDSGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSGlobal.h; sourceTree = "<group>"; };
+		2FB05F3F14FD556D00AD77AB /* TDSMainScreenTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSMainScreenTabBar.h; sourceTree = "<group>"; };
+		2FB05F4014FD556D00AD77AB /* TDSMainScreenTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSMainScreenTabBar.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -290,6 +303,8 @@
 		2F7F5B2914E7859F0010F670 /* TwinDriveSystem */ = {
 			isa = PBXGroup;
 			children = (
+				2FB05F1514FD0FB800AD77AB /* Object */,
+				2FB05F1114FD0AB200AD77AB /* Tool */,
 				2F7F5C5114E789730010F670 /* Controller */,
 				2F7F5C5214E789730010F670 /* DataSource */,
 				2F7F5C5414E789730010F670 /* Model */,
@@ -560,6 +575,7 @@
 		2F7F5C5114E789730010F670 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				2FB05F2214FD1F5400AD77AB /* MainScreenViewController */,
 				2F7F5C6314E790220010F670 /* PhotoViewController */,
 			);
 			name = Controller;
@@ -577,6 +593,7 @@
 		2F7F5C5314E789730010F670 /* General */ = {
 			isa = PBXGroup;
 			children = (
+				2FB05F3B14FD509600AD77AB /* TDSGlobal.h */,
 				2F021C5E14E80B79003388B6 /* TDSConfig.h */,
 				2F021C5F14E80B79003388B6 /* TDSConfig.m */,
 				2F021C7C14E80FCD003388B6 /* TDSConfigDelegate.h */,
@@ -597,6 +614,7 @@
 		2F7F5C5514E789730010F670 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2FB05F3E14FD555000AD77AB /* TabView */,
 				2F7F5C6B14E790940010F670 /* PhotoView */,
 			);
 			name = View;
@@ -660,6 +678,44 @@
 				2F8B057A14E96BC5003731A4 /* sbjson-iosTests.octest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		2FB05F1114FD0AB200AD77AB /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				2FB05F1214FD0B7200AD77AB /* TDSNetControlCenter.h */,
+				2FB05F1314FD0B7200AD77AB /* TDSNetControlCenter.m */,
+			);
+			name = Tool;
+			path = Class/Tool;
+			sourceTree = "<group>";
+		};
+		2FB05F1514FD0FB800AD77AB /* Object */ = {
+			isa = PBXGroup;
+			children = (
+				2FB05F1614FD0FF700AD77AB /* TDSRequestObject.h */,
+				2FB05F1714FD0FF700AD77AB /* TDSRequestObject.m */,
+			);
+			name = Object;
+			path = Class/Object;
+			sourceTree = "<group>";
+		};
+		2FB05F2214FD1F5400AD77AB /* MainScreenViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2FB05F1F14FD1F4E00AD77AB /* TDSMainScreenViewController.h */,
+				2FB05F2014FD1F4E00AD77AB /* TDSMainScreenViewController.m */,
+			);
+			name = MainScreenViewController;
+			sourceTree = "<group>";
+		};
+		2FB05F3E14FD555000AD77AB /* TabView */ = {
+			isa = PBXGroup;
+			children = (
+				2FB05F3F14FD556D00AD77AB /* TDSMainScreenTabBar.h */,
+				2FB05F4014FD556D00AD77AB /* TDSMainScreenTabBar.m */,
+			);
+			name = TabView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -817,6 +873,10 @@
 				2F7F5C6E14E790C50010F670 /* TDSPhotoView.m in Sources */,
 				2F7F5C7214E791B80010F670 /* TDSPhotoModel.m in Sources */,
 				2F021C6014E80B79003388B6 /* TDSConfig.m in Sources */,
+				2FB05F1414FD0B7200AD77AB /* TDSNetControlCenter.m in Sources */,
+				2FB05F1814FD0FF700AD77AB /* TDSRequestObject.m in Sources */,
+				2FB05F2114FD1F4E00AD77AB /* TDSMainScreenViewController.m in Sources */,
+				2FB05F4114FD556D00AD77AB /* TDSMainScreenTabBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -897,7 +957,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TwinDriveSystem/TwinDriveSystem-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2/**";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)\"/TwinDriveSystem/Dependencies/**",
+					"${SDK_DIR}/usr/include/libxml2/**",
+				);
 				INFOPLIST_FILE = "TwinDriveSystem/TwinDriveSystem-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				LIBRARY_SEARCH_PATHS = (
@@ -928,7 +991,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TwinDriveSystem/TwinDriveSystem-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2/**";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)\"/TwinDriveSystem/Dependencies/**",
+					"${SDK_DIR}/usr/include/libxml2/**",
+				);
 				INFOPLIST_FILE = "TwinDriveSystem/TwinDriveSystem-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				LIBRARY_SEARCH_PATHS = (

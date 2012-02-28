@@ -42,8 +42,8 @@ static TDSConfig *_globalConfig = nil;
     self = [super init]; 
     if (self) {
         
-        self.mApiUrl = @"http://ofshellohicy.sinaapp.com/j_photo.php";// ?start=0
-        
+//        self.mApiUrl = @"http://ofshellohicy.sinaapp.com/j_photo.php";// ?start=0
+        self.mApiUrl = @"http://ofshellohicy.sinaapp.com/api_photo.php";
         //应用在appStore的ID
         self.appStoreId = @"1010101";
         // App ID
@@ -56,7 +56,7 @@ static TDSConfig *_globalConfig = nil;
         self.clientName = @"TwinDriveSystem";
         self.model = @"iPhone";
         
-        self.httpTimeout = 45;
+        self.httpTimeout = 45.0f;
         
     }
     return self;

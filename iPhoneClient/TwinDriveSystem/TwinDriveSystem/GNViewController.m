@@ -1,4 +1,4 @@
-//
+    //
 //  ViewController.m
 //  TwinDriveSystem
 //
@@ -10,6 +10,8 @@
 #import "TDSPhotoViewController.h"
 #import "TDSPhotoModel.h"
 #import "TDSPhotoView.h"
+#import "TDSNetControlCenter.h"
+#import "TDSMainScreenViewController.h"
 
 @implementation GNViewController
 
@@ -59,6 +61,12 @@
     [photoViewController release];    
 	[collectViewController release];    
 	[aboutViewController release];	
+    
+    // test ASIHttpRequest OK!!~
+    TDSConfig *config = [TDSConfig getInstance];
+    NSString *url = [NSString stringWithFormat:@"%@?start=0",config.mApiUrl];
+    TDSNetControlCenter *request = [[TDSNetControlCenter alloc] init];
+    [request sendRequestWithObject:[NSURL URLWithString:url]];
 
 }
 

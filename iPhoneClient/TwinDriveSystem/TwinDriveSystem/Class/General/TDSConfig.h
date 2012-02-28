@@ -40,7 +40,7 @@
     NSString *_clientInfoJSONString;
         
     // http请求超时时间
-	NSUInteger _httpTimeout;
+	NSTimeInterval _httpTimeout;
     
 }
 
@@ -78,6 +78,6 @@
 // Client Info.
 @property (nonatomic, readonly) NSString *clientInfoJSONString;
 
-@property (assign) NSUInteger httpTimeout;
+@property (assign) NSTimeInterval httpTimeout;
 
 @end
