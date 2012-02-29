@@ -8,13 +8,27 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "TwinDriveSystem/Class/Controller/TDSPhotoViewController.m"
-         timestampString = "350752886.782338"
+         filePath = "TwinDriveSystem/Class/Tool/TDSPhotoHTTPRequest.m"
+         timestampString = "352144881.540959"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "40"
-         endingLineNumber = "40"
-         landmarkName = "-moveToPhotoAtIndex:animated:"
+         startingLineNumber = "150"
+         endingLineNumber = "150"
+         landmarkName = "-requestDidFailSelector:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "TwinDriveSystem/Class/Object/TDSRequestObject.m"
+         timestampString = "352144913.515392"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "29"
+         endingLineNumber = "29"
+         landmarkName = "-initWithDictionary:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
