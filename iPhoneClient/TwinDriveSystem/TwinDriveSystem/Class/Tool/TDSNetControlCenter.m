@@ -8,9 +8,9 @@
 
 #import "TDSNetControlCenter.h"
 #import "ASINetworkQueue.h"
-#import "TDSRequestObject.h"
+#import "TDSResponseObject.h"
 #import "ASIFormDataRequest.h"
-#import "TDSRequestObject.h"
+#import "TDSResponseObject.h"
 
 @implementation TDSNetControlCenter
 @synthesize operationQueue = _operationQueue;
@@ -65,7 +65,7 @@
     for (id key in responseDic.allKeys) {
         NSDictionary *infoDic = [responseDic objectForKey:key];
 //        NSLog(@"[%@]:%@",key,infoDic);
-        TDSRequestObject *infoObject = [TDSRequestObject objectWithDictionary:infoDic];
+        TDSResponseObject *infoObject = [TDSResponseObject objectWithDictionary:infoDic];
         infoObject.kWeiboID = (NSString*)key;
         NSLog(@"key:[%@] id:[%@] createTime[%@] pic[%@]",infoObject.kWeiboID,
                                                          infoObject.createTime,

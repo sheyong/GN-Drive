@@ -23,7 +23,7 @@
 
 #pragma mark - View lifecycle
 - (void)dealloc{
-    [_tabBarController release];
+    [_mainScreenViewController release];
     [super dealloc];
 }
 - (TDSPhotoModel *)testSource{
@@ -52,11 +52,9 @@
     UIViewController *aboutViewController = [[UIViewController alloc] init];
     aboutViewController.view.backgroundColor = [UIColor blueColor];
     
-	_tabBarController = [[UITabBarController alloc]init];
-	[_tabBarController setViewControllers:[NSArray arrayWithObjects:photoViewController,collectViewController,aboutViewController,nil]];
-    	
-    [self.view addSubview:_tabBarController.view];
-//    [self.view addSubview:photoViewController.view];
+    _mainScreenViewController = [[TDSMainScreenViewController alloc] init];
+    [_mainScreenViewController setViewControllers:[NSArray arrayWithObjects:photoViewController,collectViewController,aboutViewController, nil]];
+    [self.view addSubview:_mainScreenViewController.view];
     
     [photoViewController release];    
 	[collectViewController release];    

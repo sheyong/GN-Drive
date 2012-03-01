@@ -38,5 +38,7 @@
 	</array>
 	<key>UILaunchImageFile~iphone</key>
 	<string>Default.png</string>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleBlackOpaque</string>
 </dict>
 </plist>
