@@ -27,7 +27,7 @@
             [urlString appendFormat:@"%@=%@",key,value];
         }
     }
-    NSLog(@" ##requestURL:%@",urlString);
+    TDSLOG_debug(@" ##requestURL:%@",urlString);
     
     return [NSURL URLWithString:urlString];
 

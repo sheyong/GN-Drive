@@ -40,7 +40,7 @@
 }
 
 - (void) sendRequestWithObject:(id)reqObj{
-    NSLog(@"sendRequestWithObject %@",reqObj);
+    TDSLOG_info(@"sendRequestWithObject %@",reqObj);
     if (reqObj == nil) {
         return;
     }
@@ -76,7 +76,7 @@
 }
 
 - (void)requestDidStartSelector:(ASIHTTPRequest *)request{
-    NSLog(@" requestDidStartSelector");
+    TDSLOG_info(@" requestDidStartSelector");
 }
 
 - (void)requestDidFinishSelector:(ASIHTTPRequest *)request{
@@ -87,8 +87,8 @@
         NSDictionary *infoDic = [responseDic objectForKey:key];
         responseObject = [TDSResponseObject objectWithDictionary:infoDic];
         responseObject.kWeiboID = (NSString*)key;
-        NSLog(@" requestDidFinishSelector");
-        NSLog(@"key:[%@] createTime:[%@] url[%@] text[%@]",responseObject.kWeiboID,
+        TDSLOG_info(@" requestDidFinishSelector");
+        TDSLOG_debug(@"key:[%@] createTime:[%@] url[%@] text[%@]",responseObject.kWeiboID,
                                                          responseObject.createTime,
                                                          responseObject.picUrlText,
                                                          responseObject.describeText);
@@ -99,8 +99,8 @@
     }
 }
 - (void)requestDidFailSelector:(ASIHTTPRequest *)request{
-    NSLog(@" requestDidFailSelector");    
-    NSLog(@"error:%@",request.responseString);
+    TDSLOG_info(@" requestDidFailSelector");    
+    TDSLOG_error(@"error:%@",request.responseString);
     TDSResponseObject *responseObject = nil;
     // 回调
     if (self.delegate != nil && [self.delegate respondsToSelector:@selector(tdsNetControlCenter:requestDidFailedLoad::)]) {

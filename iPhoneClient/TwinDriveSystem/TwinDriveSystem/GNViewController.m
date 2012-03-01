@@ -68,7 +68,6 @@
     TDSRequestObject *requestObject = [TDSRequestObject requestObjectForQuery:query];
     [request sendRequestWithObject:requestObject];
     
-    
 }
 
 - (void)viewDidUnload

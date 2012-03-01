@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2F021C6014E80B79003388B6 /* TDSConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F021C5F14E80B79003388B6 /* TDSConfig.m */; };
 		2F0C747214FF8BF400BF496C /* TDSRequestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0C747114FF8BF400BF496C /* TDSRequestObject.m */; };
+		2F0C74B514FFF92F00BF496C /* TDSLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0C74B414FFF92F00BF496C /* TDSLogger.m */; };
 		2F7F5B2414E7859F0010F670 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F7F5B2314E7859F0010F670 /* UIKit.framework */; };
 		2F7F5B2614E7859F0010F670 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F7F5B2514E7859F0010F670 /* Foundation.framework */; };
 		2F7F5B2814E7859F0010F670 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F7F5B2714E7859F0010F670 /* CoreGraphics.framework */; };
@@ -124,6 +125,8 @@
 		2F021C7C14E80FCD003388B6 /* TDSConfigDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSConfigDelegate.h; sourceTree = "<group>"; };
 		2F0C747014FF8BF400BF496C /* TDSRequestObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSRequestObject.h; sourceTree = "<group>"; };
 		2F0C747114FF8BF400BF496C /* TDSRequestObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSRequestObject.m; sourceTree = "<group>"; };
+		2F0C74B314FFF92F00BF496C /* TDSLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSLogger.h; sourceTree = "<group>"; };
+		2F0C74B414FFF92F00BF496C /* TDSLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSLogger.m; sourceTree = "<group>"; };
 		2F7F5B1F14E7859F0010F670 /* TwinDriveSystem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwinDriveSystem.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F7F5B2314E7859F0010F670 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2F7F5B2514E7859F0010F670 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -602,9 +605,11 @@
 			isa = PBXGroup;
 			children = (
 				2FB05F3B14FD509600AD77AB /* TDSGlobal.h */,
+				2F021C7C14E80FCD003388B6 /* TDSConfigDelegate.h */,
 				2F021C5E14E80B79003388B6 /* TDSConfig.h */,
 				2F021C5F14E80B79003388B6 /* TDSConfig.m */,
-				2F021C7C14E80FCD003388B6 /* TDSConfigDelegate.h */,
+				2F0C74B314FFF92F00BF496C /* TDSLogger.h */,
+				2F0C74B414FFF92F00BF496C /* TDSLogger.m */,
 			);
 			name = General;
 			path = Class/General;
@@ -883,6 +888,7 @@
 				2FB05F2114FD1F4E00AD77AB /* TDSMainScreenViewController.m in Sources */,
 				2FB05F4114FD556D00AD77AB /* TDSMainScreenTabBar.m in Sources */,
 				2F0C747214FF8BF400BF496C /* TDSRequestObject.m in Sources */,
+				2F0C74B514FFF92F00BF496C /* TDSLogger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
