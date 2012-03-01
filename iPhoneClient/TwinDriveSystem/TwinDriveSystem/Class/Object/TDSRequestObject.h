@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TDSRequestObject : NSObject
+@interface TDSRequestObject : NSObject{
+    NSMutableDictionary *_parametersDic;
+}
 
+@property (nonatomic, retain) NSURL *URL;
+@property (nonatomic, retain) NSMutableDictionary *parametersDic;
+
++ (id)requestObjectForQuery:(NSMutableDictionary*)query;
 @end

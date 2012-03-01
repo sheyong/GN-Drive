@@ -12,6 +12,7 @@
 #import "TDSPhotoView.h"
 #import "TDSNetControlCenter.h"
 #import "TDSMainScreenViewController.h"
+#import "TDSRequestObject.h"
 
 @implementation GNViewController
 
@@ -61,11 +62,13 @@
 	[aboutViewController release];	
     
     // test ASIHttpRequest OK!!~
-    TDSConfig *config = [TDSConfig getInstance];
-    NSString *url = [NSString stringWithFormat:@"%@?start=0",config.mApiUrl];
     TDSNetControlCenter *request = [[TDSNetControlCenter alloc] init];
-    [request sendRequestWithObject:[NSURL URLWithString:url]];
-
+    NSMutableDictionary *query = [NSMutableDictionary dictionary];
+    [query setObject:@"0" forKey:@"start"];
+    TDSRequestObject *requestObject = [TDSRequestObject requestObjectForQuery:query];
+    [request sendRequestWithObject:requestObject];
+    
+    
 }
 
 - (void)viewDidUnload
@@ -98,7 +101,8 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+    return ((interfaceOrientation == UIInterfaceOrientationPortrait)||
+            (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown));
 }
 
 @end

@@ -326,6 +326,11 @@
 		2F7F5B2A14E7859F0010F670 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2F7F5D9414E7C3450010F670 /* icon-72.png */,
+				2F7F5D9514E7C3450010F670 /* icon.png */,
+				2F7F5D9614E7C3450010F670 /* icon@2x.png */,
+				2F7F5D8914E7C0D20010F670 /* Default.png */,
+				2F7F5D8A14E7C0D20010F670 /* Default@2x.png */,
 				2F7F5B2B14E7859F0010F670 /* TwinDriveSystem-Info.plist */,
 				2F7F5B2C14E7859F0010F670 /* InfoPlist.strings */,
 				2F7F5B2F14E7859F0010F670 /* main.m */,
@@ -654,11 +659,6 @@
 		2F7F5D8814E7C0B90010F670 /* Resouces */ = {
 			isa = PBXGroup;
 			children = (
-				2F7F5D9414E7C3450010F670 /* icon-72.png */,
-				2F7F5D9514E7C3450010F670 /* icon.png */,
-				2F7F5D9614E7C3450010F670 /* icon@2x.png */,
-				2F7F5D8914E7C0D20010F670 /* Default.png */,
-				2F7F5D8A14E7C0D20010F670 /* Default@2x.png */,
 			);
 			name = Resouces;
 			path = TwinDriveSystem/Resouces;
@@ -696,10 +696,10 @@
 		2FB05F1514FD0FB800AD77AB /* Object */ = {
 			isa = PBXGroup;
 			children = (
-				2FB05F1614FD0FF700AD77AB /* TDSResponseObject.h */,
-				2FB05F1714FD0FF700AD77AB /* TDSResponseObject.m */,
 				2F0C747014FF8BF400BF496C /* TDSRequestObject.h */,
 				2F0C747114FF8BF400BF496C /* TDSRequestObject.m */,
+				2FB05F1614FD0FF700AD77AB /* TDSResponseObject.h */,
+				2FB05F1714FD0FF700AD77AB /* TDSResponseObject.m */,
 			);
 			name = Object;
 			path = Class/Object;

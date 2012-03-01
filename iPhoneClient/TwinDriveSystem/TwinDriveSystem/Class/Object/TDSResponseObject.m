@@ -14,12 +14,14 @@
 @synthesize describeText = _describeText;
 @synthesize picUrlText = _picUrlText;
 @synthesize createTime = _createTime;
+@synthesize error = _error;
 
 - (void)dealloc{
     self.kWeiboID = nil;
     self.createTime = nil;    
     self.picUrlText = nil;    
     self.describeText = nil;
+    self.error = nil;
     [super dealloc];
 }
 
