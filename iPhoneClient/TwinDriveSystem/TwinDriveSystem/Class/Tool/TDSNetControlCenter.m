@@ -8,13 +8,14 @@
 
 #import "TDSNetControlCenter.h"
 #import "ASINetworkQueue.h"
-#import "TDSRequestObject.h"
+#import "TDSResponseObject.h"
 #import "ASIFormDataRequest.h"
+#import "TDSResponseObject.h"
 #import "TDSRequestObject.h"
 
 @implementation TDSNetControlCenter
 @synthesize operationQueue = _operationQueue;
-
+@synthesize delegate;
 - (void)dealloc{
     
     NSArray * array = _operationQueue.operations;
@@ -23,7 +24,7 @@
     }
     [self.operationQueue reset];
     self.operationQueue = nil;
-    
+    self.delegate = nil;
     [super dealloc];
 }
 
@@ -38,44 +39,73 @@
     
 }
 
-- (void) sendRequestWithObject:(NSURL*)reqObj{
-    NSLog(@"%@",reqObj);
+- (void) sendRequestWithObject:(id)reqObj{
+    TDSLOG_info(@"sendRequestWithObject %@",reqObj);
+    if (reqObj == nil) {
+        return;
+    }
+    
     TDSConfig *config = [TDSConfig getInstance];
     
-    ASIHTTPRequest *AsiRequest = [ASIHTTPRequest requestWithURL:reqObj];
-    [AsiRequest setDelegate:self];
-    [AsiRequest setDidStartSelector:@selector(requestDidStartSelector:)];    
-    [AsiRequest setDidFailSelector:@selector(requestDidFailSelector:)];
-    [AsiRequest setDidFinishSelector:@selector(requestDidFinishSelector:)];    
-    [AsiRequest setTimeOutSeconds:config.httpTimeout];
-    [AsiRequest setDefaultResponseEncoding:NSUTF8StringEncoding];
-    [AsiRequest setCachePolicy:NSURLRequestReloadIgnoringCacheData];
-//    [AsiRequest setUserInfo:[NSDictionary dictionaryWithObject:reqObj forKey:@"reqObject"]];
+    ASIHTTPRequest *asiRequest = nil;
     
-    [self.operationQueue addOperation:AsiRequest];     
-    [self.operationQueue go];
+    if ([reqObj isKindOfClass:[NSURL class]]) {
+        asiRequest = [ASIHTTPRequest requestWithURL:reqObj];
+    }else if ([reqObj isKindOfClass:[TDSRequestObject class]]){
+        TDSRequestObject *requestObject = (TDSRequestObject*)reqObj;
+        asiRequest = [ASIHTTPRequest requestWithURL:requestObject.URL];
+    }
+    if (asiRequest != nil) {
+        [asiRequest setDelegate:self];
+        [asiRequest setDidStartSelector:@selector(requestDidStartSelector:)];    
+        [asiRequest setDidFailSelector:@selector(requestDidFailSelector:)];
+        [asiRequest setDidFinishSelector:@selector(requestDidFinishSelector:)];    
+        [asiRequest setTimeOutSeconds:config.httpTimeout];
+        [asiRequest setDefaultResponseEncoding:NSUTF8StringEncoding];
+        [asiRequest setCachePolicy:NSURLRequestReloadIgnoringCacheData];
+        
+        [self.operationQueue addOperation:asiRequest];     
+
+    }
+    // 锁定操作队列执行
+    @synchronized(self.operationQueue){
+        if (self.operationQueue.isSuspended) {   
+            [self.operationQueue go];
+        }
+    }
 }
 
 - (void)requestDidStartSelector:(ASIHTTPRequest *)request{
+    TDSLOG_info(@" requestDidStartSelector");
 }
 
 - (void)requestDidFinishSelector:(ASIHTTPRequest *)request{
     
     NSMutableDictionary *responseDic = (NSMutableDictionary*)[request.responseString JSONValue];
+    TDSResponseObject *responseObject = nil;
     for (id key in responseDic.allKeys) {
         NSDictionary *infoDic = [responseDic objectForKey:key];
-//        NSLog(@"[%@]:%@",key,infoDic);
-        TDSRequestObject *infoObject = [TDSRequestObject objectWithDictionary:infoDic];
-        infoObject.kWeiboID = (NSString*)key;
-        NSLog(@"key:[%@] id:[%@] createTime[%@] pic[%@]",infoObject.kWeiboID,
-                                                         infoObject.createTime,
-                                                         infoObject.picUrlText,
-                                                         infoObject.describeText);
+        responseObject = [TDSResponseObject objectWithDictionary:infoDic];
+        responseObject.kWeiboID = (NSString*)key;
+        TDSLOG_info(@" requestDidFinishSelector");
+        TDSLOG_debug(@"key:[%@] createTime:[%@] url[%@] text[%@]",responseObject.kWeiboID,
+                                                         responseObject.createTime,
+                                                         responseObject.picUrlText,
+                                                         responseObject.describeText);
     }
-    
+    // 回调
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(tdsNetControlCenter:requestDidFinishedLoad:)]) {
+        [self.delegate tdsNetControlCenter:self requestDidFinishedLoad:responseObject];
+    }
 }
 - (void)requestDidFailSelector:(ASIHTTPRequest *)request{
-    NSLog(@"error:%@",request.responseString);
+    TDSLOG_info(@" requestDidFailSelector");    
+    TDSLOG_error(@"error:%@",request.responseString);
+    TDSResponseObject *responseObject = nil;
+    // 回调
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(tdsNetControlCenter:requestDidFailedLoad::)]) {
+        [self.delegate tdsNetControlCenter:self requestDidFailedLoad:responseObject];
+    }
 }
 
 @end

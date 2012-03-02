@@ -2,24 +2,18 @@
 //  TDSRequestObject.h
 //  TwinDriveSystem
 //
-//  Created by zhongsheng on 12-2-28.
+//  Created by zhongsheng on 12-3-1.
 //  Copyright (c) 2012年 renren. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
 @interface TDSRequestObject : NSObject{
-    NSString *_kWeiboID;
-    NSString *_describeText;
-    NSString *_picUrlText;
-    NSDate   *_createTime;
+    NSMutableDictionary *_parametersDic;
 }
-@property (nonatomic, copy) NSString *kWeiboID;
-@property (nonatomic, copy) NSString *describeText;
-@property (nonatomic, copy) NSString *picUrlText;
-@property (nonatomic, copy) NSDate   *createTime;
 
-- (id)initWithDictionary:(NSDictionary *)dictionary;
-+ (TDSRequestObject *)objectWithDictionary:(NSDictionary *)dictionary;
+@property (nonatomic, retain) NSURL *URL;
+@property (nonatomic, retain) NSMutableDictionary *parametersDic;
 
++ (id)requestObjectForQuery:(NSMutableDictionary*)query;
 @end

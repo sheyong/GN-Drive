@@ -12,6 +12,7 @@
 #import "TDSPhotoView.h"
 #import "TDSNetControlCenter.h"
 #import "TDSMainScreenViewController.h"
+#import "TDSRequestObject.h"
 
 @implementation GNViewController
 
@@ -23,7 +24,7 @@
 
 #pragma mark - View lifecycle
 - (void)dealloc{
-    [_tabBarController release];
+    [_mainScreenViewController release];
     [super dealloc];
 }
 - (TDSPhotoModel *)testSource{
@@ -52,22 +53,21 @@
     UIViewController *aboutViewController = [[UIViewController alloc] init];
     aboutViewController.view.backgroundColor = [UIColor blueColor];
     
-	_tabBarController = [[UITabBarController alloc]init];
-	[_tabBarController setViewControllers:[NSArray arrayWithObjects:photoViewController,collectViewController,aboutViewController,nil]];
-    	
-    [self.view addSubview:_tabBarController.view];
-//    [self.view addSubview:photoViewController.view];
+    _mainScreenViewController = [[TDSMainScreenViewController alloc] init];
+    [_mainScreenViewController setViewControllers:[NSArray arrayWithObjects:photoViewController,collectViewController,aboutViewController, nil]];
+    [self.view addSubview:_mainScreenViewController.view];
     
     [photoViewController release];    
 	[collectViewController release];    
 	[aboutViewController release];	
     
     // test ASIHttpRequest OK!!~
-    TDSConfig *config = [TDSConfig getInstance];
-    NSString *url = [NSString stringWithFormat:@"%@?start=0",config.mApiUrl];
     TDSNetControlCenter *request = [[TDSNetControlCenter alloc] init];
-    [request sendRequestWithObject:[NSURL URLWithString:url]];
-
+    NSMutableDictionary *query = [NSMutableDictionary dictionary];
+    [query setObject:@"0" forKey:@"start"];
+    TDSRequestObject *requestObject = [TDSRequestObject requestObjectForQuery:query];
+    [request sendRequestWithObject:requestObject];
+    
 }
 
 - (void)viewDidUnload
@@ -100,7 +100,8 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+    return ((interfaceOrientation == UIInterfaceOrientationPortrait)||
+            (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown));
 }
 
 @end

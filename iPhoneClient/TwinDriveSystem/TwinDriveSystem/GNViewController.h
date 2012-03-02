@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 @class TDSMainScreenViewController;
 @interface GNViewController : UIViewController{
-    UITabBarController *_tabBarController;
     TDSMainScreenViewController *_mainScreenViewController;
 }
 

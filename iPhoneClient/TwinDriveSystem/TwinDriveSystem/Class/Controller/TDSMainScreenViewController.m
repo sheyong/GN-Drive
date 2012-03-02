@@ -8,6 +8,12 @@
 
 #import "TDSMainScreenViewController.h"
 #import "TDSPhotoViewController.h"
+@interface TDSMainScreenViewController(Private)
+// 隐藏旧的界面
+- (void)hideOldViewController:(NSInteger)oldIndex;
+// 显示新的界面
+- (void)showNewViewController:(NSInteger)newIndex viewAppear:(BOOL)viewAppear;
+@end
 
 @implementation TDSMainScreenViewController
 @synthesize tabBar = _tabBar;
@@ -34,37 +40,21 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {
-    NSMutableArray *viewControllers = [NSMutableArray arrayWithCapacity:3];  
-    
-    TDSPhotoViewController *photoViewController = [[TDSPhotoViewController alloc] initWithPhotoSource:nil];
-    photoViewController.view.backgroundColor = [UIColor clearColor];
-    [viewControllers addObject:photoViewController];
-    [photoViewController release];
-    
-    UIViewController *collectViewController = [[UIViewController alloc] init];
-    collectViewController.view.backgroundColor = [UIColor redColor];
-    [viewControllers addObject:collectViewController];
-    [collectViewController release];
-    
-    UIViewController *aboutViewController = [[UIViewController alloc] init];
-    aboutViewController.view.backgroundColor = [UIColor blueColor];
-    [viewControllers addObject:aboutViewController];
-    [aboutViewController release];
-    
-    self.viewControllers = viewControllers;
-    
-    for (UIViewController *viewController in self.viewControllers) {
-        
-        viewController.view.frame = CGRectMake(0,
-                                               0,
-                                               self.view.bounds.size.width,
-                                               self.view.bounds.size.height);
-        viewController.view.hidden = YES;
-        [self.view addSubview:viewController.view];
+    [super loadView];
+    if ([self.viewControllers count] > 0 ) {
+        for (UIViewController *viewController in self.viewControllers) {
+            
+            viewController.view.frame = CGRectMake(0,
+                                                   0,
+                                                   self.view.bounds.size.width,
+                                                   self.view.bounds.size.height);
+            viewController.view.hidden = YES;// 初始化隐藏
+            [self.view addSubview:viewController.view];
+        }
     }
     
     CGRect tabBarFrame = CGRectMake(0, self.view.bounds.size.height, 0, 0);
-    TDSMainScreenTabBar *tabBar = [[TDSMainScreenTabBar alloc] initWithFrame:tabBarFrame];
+    TDSMainScreenTabBar *tabBar = [[TDSMainScreenTabBar alloc] init];
     self.tabBar = tabBar;
     tabBarFrame = CGRectMake(0,
                              self.view.bounds.size.height - self.tabBar.selfSize.height,
@@ -77,25 +67,37 @@
     
 }
 
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [self.tabBar setSelectTabIndex:self.currentViewControllerIndex animated:NO];
+    
+}
+
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
+    
+    self.viewControllers = nil;
+    self.tabBar = nil;
+    
+}
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    // 
     UIViewController* viewController = [self.viewControllers objectAtIndex:self.currentViewControllerIndex];
     viewController.view.hidden = NO;
     [viewController viewWillAppear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    
-    self.navigationController.navigationBar.topItem.leftBarButtonItem = nil;
-    self.navigationController.navigationBar.topItem.rightBarButtonItem = nil;
-    // 
-    UIViewController* viewController = [self.viewControllers objectAtIndex:self.currentViewControllerIndex];
-    [viewController viewDidAppear:animated];
-    
+    [super viewDidAppear:animated];    
     [self showNewViewController:self.currentViewControllerIndex viewAppear:NO];
 }
 
@@ -113,46 +115,14 @@
     [currentViewController viewDidDisappear:animated];
 }
 
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    [self.tabBar setSelectTabIndex:self.currentViewControllerIndex animated:NO];
-
-}
-
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-    
-    self.viewControllers = nil;
-    self.tabBar = nil;
-    
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-// 隐藏旧的界面
-- (void)hideOldViewController:(NSInteger)oldIndex
-{
-    UIViewController* viewController = [self.viewControllers objectAtIndex:oldIndex];
-    self.navigationController.navigationBar.topItem.leftBarButtonItem = nil;
-    self.navigationController.navigationBar.topItem.rightBarButtonItem = nil;
-    
-    viewController.view.hidden = YES;
-    [viewController viewWillDisappear:NO];
-    [viewController viewDidDisappear:NO];
-}
+#pragma mark - Private
 
-// 显示新的界面
 - (void)showNewViewController:(NSInteger)newIndex viewAppear:(BOOL)viewAppear
 {
     UIViewController* viewController = [self.viewControllers objectAtIndex:newIndex];
@@ -162,6 +132,14 @@
         [viewController viewWillAppear:NO];
         [viewController viewDidAppear:NO];        
     }
+}
+
+- (void)hideOldViewController:(NSInteger)oldIndex
+{
+    UIViewController* viewController = [self.viewControllers objectAtIndex:oldIndex];    
+    viewController.view.hidden = YES;
+    [viewController viewWillDisappear:NO];
+    [viewController viewDidDisappear:NO];
 }
 
 #pragma mark - mainScreenTabBar delegate

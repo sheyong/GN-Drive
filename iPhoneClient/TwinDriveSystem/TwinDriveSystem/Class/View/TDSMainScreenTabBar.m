@@ -8,8 +8,8 @@
 
 #import "TDSMainScreenTabBar.h"
 #define EDGE_WIDTH 18
-
 #define DEFAULT_ANIMATION_DURATION 0.2
+#define TAB_TOOL_BAR_SIZE CGSizeMake(320.0f, 44.0);
 
 @interface TDSMainScreenTabBar (Private)
 - (void)initializationTabs;
@@ -30,22 +30,27 @@
 @synthesize selfSize = _selfSize;
 
 - (void)setSkinResView{
-    [self removeAllSubviews];
+    
+    for (UIView *view in self.subviews) {
+        [view removeFromSuperview];
+    }
     
     self.backgroundColor = [UIColor clearColor];
+    CGSize size = TAB_TOOL_BAR_SIZE;
     UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 
                                                                                 0.0f, 
-                                                                                320.0f, 
-                                                                                44.0f)];
-    backgroundView.backgroundColor = [UIColor blackColor];
+                                                                                size.width, 
+                                                                                size.height)];
+    backgroundView.backgroundColor = [UIColor yellowColor];
     self.backgroundView = backgroundView;
     [backgroundView release];
     [self addSubview:self.backgroundView];    
     
     UIImageView *thumbView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 
                                                                            0.0f, 
-                                                                           100.0f, 
-                                                                           44.0f)];
+                                                                           50.0, 
+                                                                           size.height)];
+    thumbView.backgroundColor = [UIColor grayColor];
     self.thumbView = thumbView;
     [thumbView release];
     [self addSubview:self.thumbView];
@@ -63,22 +68,20 @@
     self.badgeLabels = nil;
     [super dealloc];
 }
-
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
+- (id)init{
+    self = [super init];
     if (self) {
-        // Initialization code
-        [self setSkinResView];        
-        
         UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandle:)];
         [self addGestureRecognizer:tapRecognizer];
         [tapRecognizer release];
         
         self.animationDuration = DEFAULT_ANIMATION_DURATION;
-        _selfSize =  CGSizeMake(320, 48);
-        _thumbWidth = self.thumbView.image.size.width;
+        _selfSize =  TAB_TOOL_BAR_SIZE;
+        _thumbWidth = 95.0f;//self.thumbView.image.size.width;
         _thumbSpace = (_selfSize.width - 2*EDGE_WIDTH - self.normalTabs.count*_thumbWidth)/(self.normalTabs.count - 1);
+        
+        // Initialization code
+        [self setSkinResView];                
     }
     return self;
 }
@@ -147,24 +150,26 @@
 }
 
 - (void)layoutSubviews{
-    self.backgroundView.frame = CGRectIntegral(CGRectMake((_selfSize.width - self.backgroundView.image.size.width)/2,
-                                                          (_selfSize.height - self.backgroundView.image.size.height)/2,
-                                                          self.backgroundView.image.size.width,
-                                                          self.backgroundView.image.size.height));
+//    self.backgroundView.frame = CGRectIntegral(CGRectMake((_selfSize.width - self.backgroundView.image.size.width)/2,
+//                                                          (_selfSize.height - self.backgroundView.image.size.height)/2,
+//                                                          self.backgroundView.image.size.width,
+//                                                          self.backgroundView.image.size.height));
     
     
-    self.thumbView.frame = CGRectIntegral(CGRectMake(EDGE_WIDTH + self.currentTabIndex * (_thumbSpace + _thumbWidth),
+    self.thumbView.frame = CGRectIntegral(CGRectMake(EDGE_WIDTH + self.currentTabIndex*(_thumbSpace+_thumbWidth),
                                                      0,
                                                      _thumbWidth,
-                                                     self.thumbView.image.size.height));
+                                                     40.0f));//self.thumbView.image.size.height));
     
     for (NSInteger idx = 0; idx < self.normalTabs.count; idx ++) {
         UIImageView *normalTab = [self.normalTabs objectAtIndex:idx];
         UIImageView *selectedTab = [self.selectedTabs objectAtIndex:idx];
         CGRect tabFrame = CGRectIntegral(CGRectMake(EDGE_WIDTH + idx * (_thumbSpace + _thumbWidth) + (_thumbWidth - normalTab.image.size.width)/2,
                                                     (_selfSize.height - normalTab.image.size.height)/2,
-                                                    normalTab.image.size.width,
-                                                    normalTab.image.size.height));
+                                                    40,
+                                                    40));
+//                                                    normalTab.image.size.width,
+//                                                    normalTab.image.size.height));
         normalTab.frame = tabFrame;
         selectedTab.frame = tabFrame;
         
@@ -197,7 +202,7 @@
 
 - (void)setSelectTabIndex:(NSInteger)index animated:(BOOL)animated{    
     
-    CGFloat currentThumbShouldX = EDGE_WIDTH + self.currentTabIndex * (_thumbSpace + _thumbWidth);
+    CGFloat currentThumbShouldX = EDGE_WIDTH + self.currentTabIndex*(_thumbSpace+_thumbWidth);
     
     if (index == self.currentTabIndex && CGRectGetMinX(self.thumbView.frame) == currentThumbShouldX) {
         // 选中项等于当前项有两种情况：1.重复点击；2.未拉倒位置回退的情况;     
@@ -209,17 +214,15 @@
     if (animated) {
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:self.animationDuration];
-        //        [UIView setAnimationDelegate:self];
-        //        [UIView setAnimationDidStopSelector:@selector(selectEnded:finished:context:)];
     }
     
     self.currentTabIndex = index;
     
     if (animated) {
-        self.thumbView.frame = CGRectIntegral(CGRectMake(EDGE_WIDTH + self.currentTabIndex * (_thumbSpace + _thumbWidth),
+        self.thumbView.frame = CGRectIntegral(CGRectMake(EDGE_WIDTH + self.currentTabIndex*(_thumbSpace+_thumbWidth),
                                                          0,
                                                          _thumbWidth,
-                                                         self.thumbView.image.size.height));
+                                                         40.0f));//self.thumbView.image.size.height));
         [self updateTabs];
         
         [UIView commitAnimations];
@@ -234,7 +237,9 @@
     
 }
 
-
+- (void)setBadgeOfIndex:(NSInteger)index content:(NSString *)content{
+    
+}
 
 #pragma mark -  手势处理
 - (void)tapHandle:(UITapGestureRecognizer *)tapRecognizer{
@@ -247,10 +252,10 @@
     NSInteger selectIdx = self.currentTabIndex;
     
     for (NSInteger idx = 0; idx < self.normalTabs.count; idx ++) {
-        CGRect idxThumbFrame = CGRectMake(EDGE_WIDTH + idx * (_thumbSpace + _thumbWidth) - 15,
+        CGRect idxThumbFrame = CGRectMake(EDGE_WIDTH + idx*(_thumbSpace+_thumbWidth) - 15,
                                           0,
                                           _thumbWidth + 15*2,
-                                          self.thumbView.image.size.height);
+                                          40.0f);//self.thumbView.image.size.height);
         if (CGRectContainsPoint(idxThumbFrame, location)) {
             selectIdx = idx;
             break;
