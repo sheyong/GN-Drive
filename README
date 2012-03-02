@@ -1,9 +1,19 @@
 GN Drive
+===
 
 Referred to as a "solar reactor" (太陽炉 Taiyou-Ro?), or sometimes Solar Furnace.
 
 A "Gundam Nucleus Drive" (or GN Drive (GNドライヴ GN Doraivu?) in short) is a semi-perpetual generator that outputs GN Particles, developed as a mobile weapon power source by Celestial Being.
 
-It harnesses the photon and positron discharge of the non-evaporative decay of baryonic matter as an energy source; GN particles are not used in the process of energy production. Though there is a finite energy output per unit of time, the absence of a limit to its functional life translates to an effectively inexhaustible supply of energy. Owing to the unique heatlessness of its activity and the special properties of its byproduct GN particles, device operation is virtually invisible to such methods of detection as Infra-red search and track or conventional radar. These drives are used in conjunction with a TD Blanket, a special filter used in true GN Drives. These unique components not only provide filtering to the GN Drives and prevent the GN particles from damaging cellular organisms, but also give the GN Drives their near-infinite energy production capability. This component also prevents other factions from creating true GN Drives of their own, as the TD Blanket can only be manufactured in a location of high atmospheric pressure such as the upper gaseous atmosphere of Jupiter, where the GN Drives were first manufactured. A GN Drive is unable to harness topological defects for energy without a TD Blanket. 
-
 http://en.wikipedia.org/wiki/GN_Drive
+
+***
+后端
+---
+Flask + Nginx，运行在Gentoo Linux上的基于API的应用
+***
+
+iOS客户端
+---
+浏览发现、分享图片
+
