@@ -1,0 +1,10 @@
+server{
+    listen 80;
+    server_name gn.ofshellohicy.info;
+    location / {
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME "";
+        fastcgi_param PATH_INFO $fastcgi_script_name;
+        fastcgi_pass unix:/tmp/gn-drive.sock;
+    }
+}
