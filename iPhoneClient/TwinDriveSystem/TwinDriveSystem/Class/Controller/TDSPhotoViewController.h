@@ -7,10 +7,12 @@
 //
 
 #import "EGOPhotoViewController.h"
-#import "TDSPhotoModel.h"
-
-@interface TDSPhotoViewController : EGOPhotoViewController{
-
+#import "TDSNetControlCenter.h"
+@class TDSPhotoDataSource;
+@interface TDSPhotoViewController : EGOPhotoViewController <TDSNetControlCenterDelegate>{
+    TDSNetControlCenter *_photoViewNetControlCenter;
+    
+    NSInteger _requestPage; // 请求次数
 }
-
+- (TDSPhotoDataSource *)photoSource; // 这尼玛为啥会是readOnly，暴露出来
 @end

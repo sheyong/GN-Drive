@@ -4,85 +4,59 @@
    version = "1.0">
    <FileBreakpoints>
       <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "TwinDriveSystem/DriveSystem/EGOPhotoViewer/Controller/EGOPhotoViewController/EGOPhotoViewController.m"
+         timestampString = "352388252.43548"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "757"
+         endingLineNumber = "757"
+         landmarkName = "-layoutScrollViewSubviews"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "TwinDriveSystem/Class/Tool/TDSPhotoHTTPRequest.m"
-         timestampString = "352144881.540959"
+         filePath = "TwinDriveSystem/Class/Tool/TDSNetControlCenter.m"
+         timestampString = "352481275.370333"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "150"
-         endingLineNumber = "150"
+         startingLineNumber = "114"
+         endingLineNumber = "114"
          landmarkName = "-requestDidFailSelector:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "TwinDriveSystem/Class/Object/TDSRequestObject.m"
-         timestampString = "352317636.232877"
+         filePath = "TwinDriveSystem/DriveSystem/EGOPhotoViewer/Controller/EGOPhotoViewController/EGOPhotoViewController.m"
+         timestampString = "352485855.818201"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "51"
-         endingLineNumber = "51">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "TwinDriveSystem/Class/Tool/TDSNetControlCenter.m"
-         timestampString = "352319423.379825"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "84"
-         endingLineNumber = "84"
-         landmarkName = "-requestDidFinishSelector:"
+         startingLineNumber = "712"
+         endingLineNumber = "712"
+         landmarkName = "-moveToPhotoAtIndex:animated:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "TwinDriveSystem/Class/Tool/TDSNetControlCenter.m"
-         timestampString = "352318306.900227"
+         filePath = "TwinDriveSystem/DriveSystem/EGOPhotoViewer/Controller/EGOPhotoViewController/EGOPhotoViewController.m"
+         timestampString = "352485867.835207"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "58"
-         endingLineNumber = "58"
-         landmarkName = "-sendRequestWithObject:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "TwinDriveSystem/Class/Tool/TDSNetControlCenter.m"
-         timestampString = "352319166.005438"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "79"
-         endingLineNumber = "79"
-         landmarkName = "-requestDidStartSelector:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "TwinDriveSystem/Class/Tool/TDSNetControlCenter.m"
-         timestampString = "352319423.379825"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "103"
-         endingLineNumber = "103"
-         landmarkName = "-requestDidFailSelector:"
+         startingLineNumber = "742"
+         endingLineNumber = "742"
+         landmarkName = "-layoutScrollViewSubviews"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

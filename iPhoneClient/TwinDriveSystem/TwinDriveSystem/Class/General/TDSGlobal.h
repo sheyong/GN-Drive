@@ -11,7 +11,7 @@
 #import "TDSConfig.h"
 #import "EGOPhotoGlobal.h"
 #import "ASIHTTPRequest.h"
-#import "JSON.h"
+#import "SBJson.h"
 #import "TDSLogger.h"
 
 #define TDSNewPhotoNotification           @"TDSNewPhotoNotification"

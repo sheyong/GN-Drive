@@ -8,7 +8,7 @@
 
 #import "GNViewController.h"
 #import "TDSPhotoViewController.h"
-#import "TDSPhotoModel.h"
+#import "TDSPhotoDataSource.h"
 #import "TDSPhotoView.h"
 #import "TDSNetControlCenter.h"
 #import "TDSMainScreenViewController.h"
@@ -27,11 +27,11 @@
     [_mainScreenViewController release];
     [super dealloc];
 }
-- (TDSPhotoModel *)testSource{
+- (TDSPhotoDataSource *)testSource{
     TDSPhotoView *photo = [[TDSPhotoView alloc] initWithImageURL:[NSURL URLWithString:@"http://ww3.sinaimg.cn/large/75ae7671jw1dpuzsrqhb9j.jpg"] name:@" laksd;lkas;dlkaslkd ;a"];
     TDSPhotoView *photo2 = [[TDSPhotoView alloc] initWithImageURL:[NSURL URLWithString:@"http://pic13.nipic.com/20110307/6860000_151209260116_2.jpg"] name:@"Exia "];
     TDSPhotoView *photo3 = [[TDSPhotoView alloc] initWithImageURL:[NSURL URLWithString:@"http://img3.douban.com/mpic/s3517475.jpg"] name:@"Music "];
-    TDSPhotoModel *source = [[TDSPhotoModel alloc] initWithPhotos:[NSArray arrayWithObjects:photo, photo2, photo3, nil]];
+    TDSPhotoDataSource *source = [[TDSPhotoDataSource alloc] initWithPhotos:[NSArray arrayWithObjects:photo, photo2, photo3, nil]];
     [photo release];
     [photo2 release];
     [photo3 release];
@@ -44,7 +44,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor clearColor];
     
-	TDSPhotoViewController *photoViewController = [[TDSPhotoViewController alloc] initWithPhotoSource:[self testSource]];
+	TDSPhotoViewController *photoViewController = [[TDSPhotoViewController alloc] init];
     photoViewController.view.backgroundColor = [UIColor clearColor];
     
     UIViewController *collectViewController = [[UIViewController alloc] init];
@@ -62,11 +62,11 @@
 	[aboutViewController release];	
     
     // test ASIHttpRequest OK!!~
-    TDSNetControlCenter *request = [[TDSNetControlCenter alloc] init];
-    NSMutableDictionary *query = [NSMutableDictionary dictionary];
-    [query setObject:@"0" forKey:@"start"];
-    TDSRequestObject *requestObject = [TDSRequestObject requestObjectForQuery:query];
-    [request sendRequestWithObject:requestObject];
+//    TDSNetControlCenter *request = [[TDSNetControlCenter alloc] init];
+//    NSMutableDictionary *query = [NSMutableDictionary dictionary];
+//    [query setObject:@"0" forKey:@"start"];
+//    TDSRequestObject *requestObject = [TDSRequestObject requestObjectForQuery:query];
+//    [request sendRequestWithObject:requestObject];
     
 }
 
