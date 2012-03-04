@@ -13,6 +13,12 @@
 #import "TDSResponseObject.h"
 #import "TDSRequestObject.h"
 
+@interface TDSNetControlCenter (Private)
+- (void)requestDidStartSelector:(ASIHTTPRequest *)request;
+- (void)requestDidFinishSelector:(ASIHTTPRequest *)request;
+- (void)requestDidFailSelector:(ASIHTTPRequest *)request;
+
+@end
 @implementation TDSNetControlCenter
 @synthesize operationQueue = _operationQueue;
 @synthesize delegate;
@@ -77,25 +83,31 @@
 
 - (void)requestDidStartSelector:(ASIHTTPRequest *)request{
     TDSLOG_info(@" requestDidStartSelector");
+    // 回调
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(tdsNetControlCenter:requestDidFinishedLoad:)]) {
+        [self.delegate tdsNetControlCenter:self requestDidStartRequest:nil];
+    }
 }
 
 - (void)requestDidFinishSelector:(ASIHTTPRequest *)request{
-    
+    // json 格式
     NSMutableDictionary *responseDic = (NSMutableDictionary*)[request.responseString JSONValue];
-    TDSResponseObject *responseObject = nil;
+
+    NSMutableArray *responseArray = [NSMutableArray arrayWithCapacity:[responseDic.allKeys count]];
     for (id key in responseDic.allKeys) {
         NSDictionary *infoDic = [responseDic objectForKey:key];
-        responseObject = [TDSResponseObject objectWithDictionary:infoDic];
+        TDSResponseObject *responseObject = [TDSResponseObject objectWithDictionary:infoDic];
         responseObject.kWeiboID = (NSString*)key;
+        [responseArray addObject:responseObject];
         TDSLOG_info(@" requestDidFinishSelector");
-        TDSLOG_debug(@"key:[%@] createTime:[%@] url[%@] text[%@]",responseObject.kWeiboID,
+        TDSLOG_info(@"key:[%@] createTime:[%@] url[%@] text[%@]",responseObject.kWeiboID,
                                                          responseObject.createTime,
                                                          responseObject.picUrlText,
                                                          responseObject.describeText);
     }
     // 回调
     if (self.delegate != nil && [self.delegate respondsToSelector:@selector(tdsNetControlCenter:requestDidFinishedLoad:)]) {
-        [self.delegate tdsNetControlCenter:self requestDidFinishedLoad:responseObject];
+        [self.delegate tdsNetControlCenter:self requestDidFinishedLoad:responseArray];
     }
 }
 - (void)requestDidFailSelector:(ASIHTTPRequest *)request{

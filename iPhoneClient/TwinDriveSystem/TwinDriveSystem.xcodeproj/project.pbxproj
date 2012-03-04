@@ -68,7 +68,6 @@
 		2F7F5C5914E78AC50010F670 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F7F5B8B14E788330010F670 /* CFNetwork.framework */; };
 		2F7F5C6A14E790770010F670 /* TDSPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F7F5C6914E790770010F670 /* TDSPhotoViewController.m */; };
 		2F7F5C6E14E790C50010F670 /* TDSPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F7F5C6D14E790C50010F670 /* TDSPhotoView.m */; };
-		2F7F5C7214E791B80010F670 /* TDSPhotoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F7F5C7114E791B80010F670 /* TDSPhotoModel.m */; };
 		2F7F5D8B14E7C0D20010F670 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F7F5D8914E7C0D20010F670 /* Default.png */; };
 		2F7F5D8C14E7C0D20010F670 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F7F5D8A14E7C0D20010F670 /* Default@2x.png */; };
 		2F7F5D9714E7C3450010F670 /* icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F7F5D9414E7C3450010F670 /* icon-72.png */; };
@@ -79,6 +78,7 @@
 		2FB05F1814FD0FF700AD77AB /* TDSResponseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB05F1714FD0FF700AD77AB /* TDSResponseObject.m */; };
 		2FB05F2114FD1F4E00AD77AB /* TDSMainScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB05F2014FD1F4E00AD77AB /* TDSMainScreenViewController.m */; };
 		2FB05F4114FD556D00AD77AB /* TDSMainScreenTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB05F4014FD556D00AD77AB /* TDSMainScreenTabBar.m */; };
+		2FB4DE1E15025D0200FC5D56 /* TDSPhotoDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB4DE1D15025D0200FC5D56 /* TDSPhotoDataSource.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -231,8 +231,6 @@
 		2F7F5C6914E790770010F670 /* TDSPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSPhotoViewController.m; sourceTree = "<group>"; };
 		2F7F5C6C14E790C50010F670 /* TDSPhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSPhotoView.h; sourceTree = "<group>"; };
 		2F7F5C6D14E790C50010F670 /* TDSPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSPhotoView.m; sourceTree = "<group>"; };
-		2F7F5C7014E791B80010F670 /* TDSPhotoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSPhotoModel.h; sourceTree = "<group>"; };
-		2F7F5C7114E791B80010F670 /* TDSPhotoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSPhotoModel.m; sourceTree = "<group>"; };
 		2F7F5D8914E7C0D20010F670 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = SOURCE_ROOT; };
 		2F7F5D8A14E7C0D20010F670 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = SOURCE_ROOT; };
 		2F7F5D9414E7C3450010F670 /* icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-72.png"; sourceTree = SOURCE_ROOT; };
@@ -248,6 +246,8 @@
 		2FB05F3B14FD509600AD77AB /* TDSGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSGlobal.h; sourceTree = "<group>"; };
 		2FB05F3F14FD556D00AD77AB /* TDSMainScreenTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSMainScreenTabBar.h; sourceTree = "<group>"; };
 		2FB05F4014FD556D00AD77AB /* TDSMainScreenTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSMainScreenTabBar.m; sourceTree = "<group>"; };
+		2FB4DE1C15025D0200FC5D56 /* TDSPhotoDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSPhotoDataSource.h; sourceTree = "<group>"; };
+		2FB4DE1D15025D0200FC5D56 /* TDSPhotoDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSPhotoDataSource.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -596,6 +596,8 @@
 		2F7F5C5214E789730010F670 /* DataSource */ = {
 			isa = PBXGroup;
 			children = (
+				2FB4DE1C15025D0200FC5D56 /* TDSPhotoDataSource.h */,
+				2FB4DE1D15025D0200FC5D56 /* TDSPhotoDataSource.m */,
 			);
 			name = DataSource;
 			path = Class/DataSource;
@@ -655,8 +657,6 @@
 		2F7F5C6F14E7918F0010F670 /* PhotoView */ = {
 			isa = PBXGroup;
 			children = (
-				2F7F5C7014E791B80010F670 /* TDSPhotoModel.h */,
-				2F7F5C7114E791B80010F670 /* TDSPhotoModel.m */,
 			);
 			name = PhotoView;
 			sourceTree = "<group>";
@@ -881,7 +881,6 @@
 				2F7F5C5014E7895B0010F670 /* EGOPhotoScrollView.m in Sources */,
 				2F7F5C6A14E790770010F670 /* TDSPhotoViewController.m in Sources */,
 				2F7F5C6E14E790C50010F670 /* TDSPhotoView.m in Sources */,
-				2F7F5C7214E791B80010F670 /* TDSPhotoModel.m in Sources */,
 				2F021C6014E80B79003388B6 /* TDSConfig.m in Sources */,
 				2FB05F1414FD0B7200AD77AB /* TDSNetControlCenter.m in Sources */,
 				2FB05F1814FD0FF700AD77AB /* TDSResponseObject.m in Sources */,
@@ -889,6 +888,7 @@
 				2FB05F4114FD556D00AD77AB /* TDSMainScreenTabBar.m in Sources */,
 				2F0C747214FF8BF400BF496C /* TDSRequestObject.m in Sources */,
 				2F0C74B514FFF92F00BF496C /* TDSLogger.m in Sources */,
+				2FB4DE1E15025D0200FC5D56 /* TDSPhotoDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
