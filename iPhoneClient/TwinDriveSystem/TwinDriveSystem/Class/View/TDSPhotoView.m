@@ -7,6 +7,7 @@
 //
 
 #import "TDSPhotoView.h"
+#import "TDSResponseObject.h"
 
 @implementation TDSPhotoView
 
@@ -24,7 +25,16 @@
 	
 	[super dealloc];
 }
-
+- (id)initWithResponseObject:(TDSResponseObject*)responseObject{
+    if (self = [super init]) {
+        
+		_URL=[[NSURL URLWithString:responseObject.picUrlText] retain];
+		_caption=[responseObject.describeText retain];
+		
+	}
+	
+	return self;
+}
 - (id)initWithImageURL:(NSURL*)aURL name:(NSString*)aName image:(UIImage*)aImage{
 	
 	if (self = [super init]) {

@@ -41,28 +41,23 @@
 - (void)loadView
 {
     [super loadView];
+    CGRect frame = self.view.frame;
+    frame.origin.x = 0.0f;
+    frame.origin.y = 0.0f;
+    self.view.frame = frame;
+    self.view.bounds = frame;
     if ([self.viewControllers count] > 0 ) {
         for (UIViewController *viewController in self.viewControllers) {
-            
-            viewController.view.frame = CGRectMake(0,
-                                                   0,
+            viewController.view.frame = CGRectMake(0.0f,
+                                                   0.0f,
                                                    self.view.bounds.size.width,
-                                                   self.view.bounds.size.height);
+                                                   self.view.bounds.size.height-self.tabBar.bounds.size.height);
             viewController.view.hidden = YES;// 初始化隐藏
             [self.view addSubview:viewController.view];
         }
     }
     
-    CGRect tabBarFrame = CGRectMake(0, self.view.bounds.size.height, 0, 0);
-    TDSMainScreenTabBar *tabBar = [[TDSMainScreenTabBar alloc] init];
-    self.tabBar = tabBar;
-    tabBarFrame = CGRectMake(0,
-                             self.view.bounds.size.height - self.tabBar.selfSize.height,
-                             self.tabBar.selfSize.width,
-                             self.tabBar.selfSize.height);
-    self.tabBar.barDelegate = self;
-    self.tabBar.frame = tabBarFrame;
-    [tabBar release],tabBar = nil;
+    
     [self.view addSubview:self.tabBar];
     
 }
@@ -120,6 +115,23 @@
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+#pragma mark - Property
+
+- (TDSMainScreenTabBar*)tabBar{
+    if (!_tabBar) {
+        CGRect tabBarFrame = CGRectMake(0, self.view.bounds.size.height, 0, 0);
+        TDSMainScreenTabBar *tabBar = [[TDSMainScreenTabBar alloc] init];
+        self.tabBar = tabBar;
+        tabBarFrame = CGRectMake(0,
+                                 self.view.bounds.size.height - self.tabBar.selfSize.height,
+                                 self.tabBar.selfSize.width,
+                                 self.tabBar.selfSize.height);
+        self.tabBar.barDelegate = self;
+        self.tabBar.frame = tabBarFrame;
+        [tabBar release],tabBar = nil;
+    }
+    return _tabBar;
+}
 
 #pragma mark - Private
 
@@ -155,5 +167,4 @@
     // 显示新的
     [self showNewViewController:index viewAppear:YES];
 }
-
 @end
