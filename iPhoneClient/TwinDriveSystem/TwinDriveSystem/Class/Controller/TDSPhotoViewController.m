@@ -229,15 +229,16 @@
             [self.photoViews insertObject:[NSNull null] atIndex:0];
         }
         [[self photoSource] insertPhotos:photoArray inRange:range];
-        if ([self respondsToSelector:@selector(loadScrollViewWithPage:)]) {
-            [self loadScrollViewWithPage:range.location];            
-        }
+
         if ([self respondsToSelector:@selector(setupScrollViewContentSize)]) {
             [self performSelector:@selector(setupScrollViewContentSize)];
         }
         [self moveToPhotoAtIndex:(index+ONCE_REQUEST_COUNT_LIMIT) animated:NO];
     }
      //*/
+    [self loadScrollViewWithPage:index-1];
+	[self loadScrollViewWithPage:index];
+	[self loadScrollViewWithPage:index+1];
 }
 
 #pragma mark - Private Function
@@ -283,11 +284,15 @@
         range.length = ONCE_REQUEST_COUNT_LIMIT;
         NSLog(@" ### range:(%d,%d)",range.location,range.length);
         [[self photoSource] setPhotos:photoArray inRange:range];
-        if ([self respondsToSelector:@selector(loadScrollViewWithPage:)]) {
-            [self loadScrollViewWithPage:range.location];            
+        // 如果当前页面得到数据了，则刷新下显示
+        if (_pageIndex>=range.location && _pageIndex<=(range.location+range.length)) {
+            [self loadScrollViewWithPage:_pageIndex-1];                        
+            [self loadScrollViewWithPage:_pageIndex];            
+            [self loadScrollViewWithPage:_pageIndex+1];            
         }
     }
 }
+
 - (void)tdsNetControlCenter:(TDSNetControlCenter*)netControlCenter requestDidFailedLoad:(id)response{
     TDSLOG_debug(@" ## controller load failed:%@", response);
 }
