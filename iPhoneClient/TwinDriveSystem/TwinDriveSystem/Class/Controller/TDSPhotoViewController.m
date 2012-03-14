@@ -18,7 +18,10 @@
 @interface TDSPhotoViewController(Private)
 - (void)photosLoadMore:(BOOL)more ofSize:(NSInteger)index;
 @end
-
+@interface TDSPhotoViewController(Super)
+- (void)setupScrollViewContentSize;
+- (void)loadScrollViewWithPage:(NSInteger)page;
+@end
 @implementation TDSPhotoViewController
 
 
@@ -46,6 +49,9 @@
 		_photoSource = [[TDSPhotoDataSource alloc] init];
 		_pageIndex = 0;
         _requestPage = 0;
+        _requestForwardPageCount = 0;
+        _firstLoad = YES;
+        // 初始化载入Loading图
         [[self photoSource] addLoadingPhotosOfCount:ONCE_REQUEST_COUNT_LIMIT];
     }
     return self;
@@ -107,12 +113,88 @@
         [self performSelector:@selector(setupScrollViewContentSize)];
     }
 }
+- (void)loadScrollViewWithPage:(NSInteger)page {
+	
+    if (page < 0) return;
+    if (page >= [self.photoSource numberOfPhotos]) return;
+	
+	EGOPhotoImageView * photoView = [self.photoViews objectAtIndex:page];
+	if ((NSNull*)photoView == [NSNull null]) {
+		
+		photoView = [self dequeuePhotoView];
+		if (photoView != nil) {
+			[self.photoViews exchangeObjectAtIndex:photoView.tag withObjectAtIndex:page];
+			photoView = [self.photoViews objectAtIndex:page];
+		}
+		
+	}
+	
+	if (photoView == nil || (NSNull*)photoView == [NSNull null]) {
+		
+		photoView = [[EGOPhotoImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.scrollView.bounds.size.width, self.scrollView.bounds.size.height)];
+		[self.photoViews replaceObjectAtIndex:page withObject:photoView];
+		[photoView release];
+		
+	} 
+	
+	[photoView setPhoto:[self.photoSource photoAtIndex:page]];
+	
+    if (photoView.superview == nil) {
+		[self.scrollView addSubview:photoView];
+	}
+	
+	CGRect frame = self.scrollView.frame;
+	NSInteger centerPageIndex = _pageIndex;
+	CGFloat xOrigin = (frame.size.width * page);
+	if (page > centerPageIndex) {
+		xOrigin = (frame.size.width * page) + EGOPV_IMAGE_GAP;
+	} else if (page < centerPageIndex) {
+		xOrigin = (frame.size.width * page) - EGOPV_IMAGE_GAP;
+	}
+	
+	frame.origin.x = xOrigin;
+	frame.origin.y = 0;
+	photoView.frame = frame;
+}
+
+- (void)setupScrollViewContentSize{
+	
+	CGFloat toolbarSize = _popover ? 0.0f : self.navigationController.toolbar.frame.size.height;	
+	
+	CGSize contentSize = self.view.bounds.size;
+	contentSize.width = (contentSize.width * [self.photoSource numberOfPhotos]);
+	
+	if (!CGSizeEqualToSize(contentSize, self.scrollView.contentSize)) {
+		self.scrollView.contentSize = contentSize;
+	}
+	
+	_captionView.frame = CGRectMake(0.0f, self.view.bounds.size.height - (toolbarSize + 40.0f), self.view.bounds.size.width, 40.0f);
+    
+}
 
 - (void)moveToPhotoAtIndex:(NSInteger)index animated:(BOOL)animated {
     [super moveToPhotoAtIndex:index animated:animated];
-	
+    NSLog(@" ##all:%d   %d",[self.photoViews count],[self.photoSource numberOfPhotos]);
+	NSLog(@" @@@ move to :%d",index);
+    
+    // 第一次载入，改为浏览第二张图
+    // 为了能简单实现无限前滚
+    if (index == 0 
+        && _firstLoad 
+        && [self.photoSource numberOfPhotos]>0 
+        && [self.photoViews count]>0) 
+    {
+        [self moveToPhotoAtIndex:1 animated:NO];
+        _firstLoad = NO;
+    }
+    // 超过一天能看的总数了
+    else if([self.photoViews count] >= MAC_COUNT_LIMIT){
+        NSLog(@" mo~ ");
+        // TODO:时间戳
+    }
+    // 无限后滚逻辑
     // 在最后2个内的时候重新请求
-	if (index + 1 >= [self.photoSource numberOfPhotos]-1 && [self.photoViews count] < MAC_COUNT_LIMIT) {
+	else if (index + 1 >= [self.photoSource numberOfPhotos]-1) {
         // TODO: 请求新数据
         // 《记得加锁哟，亲》添加测试数据
         @synchronized(self){
@@ -124,12 +206,38 @@
             if ([self respondsToSelector:@selector(setupScrollViewContentSize)]) {
                 [self performSelector:@selector(setupScrollViewContentSize)];
             }
-            
-//            [self testAddMoreImage];// test
             // send request
             [self photosLoadMore:YES ofSize:(++_requestPage)*ONCE_REQUEST_COUNT_LIMIT];
         }
 	} 
+//    /*
+    // 无限前滚逻辑
+    // 在浏览到第一张照片的时候添加loadingView和请求
+    else if (index == 0 && !_firstLoad ) {
+        NSLog(@" ### now index = 0");
+        _requestForwardPageCount += 1;
+        NSMutableArray *photoArray = [NSMutableArray arrayWithCapacity:5];
+        for (int index = 0; index < ONCE_REQUEST_COUNT_LIMIT; index ++) {
+            TDSPhotoView *photoView = [[TDSPhotoView alloc] initWithImageURL:[NSURL URLWithString:@"http://img1.douban.com/view/photo/photo/public/p939471942.jpg"]];
+            [photoArray addObject:photoView];
+            [photoView release];
+        }
+        NSRange range;
+        range.location = 0;
+        range.length = ONCE_REQUEST_COUNT_LIMIT;
+        for (unsigned i = 0; i < ONCE_REQUEST_COUNT_LIMIT; i++) {
+            [self.photoViews insertObject:[NSNull null] atIndex:0];
+        }
+        [[self photoSource] insertPhotos:photoArray inRange:range];
+        if ([self respondsToSelector:@selector(loadScrollViewWithPage:)]) {
+            [self loadScrollViewWithPage:range.location];            
+        }
+        if ([self respondsToSelector:@selector(setupScrollViewContentSize)]) {
+            [self performSelector:@selector(setupScrollViewContentSize)];
+        }
+        [self moveToPhotoAtIndex:(index+ONCE_REQUEST_COUNT_LIMIT) animated:NO];
+    }
+     //*/
 }
 
 #pragma mark - Private Function
@@ -165,15 +273,16 @@
                 TDSPhotoView *photoView = [[TDSPhotoView alloc] initWithResponseObject:responseObject];
                 [photoArray addObject:photoView];
                 [photoView release];
-                TDSLOG_debug(@" ### response url:%@ \n des:%@", responseObject.picUrlText,responseObject.describeText);
+                TDSLOG_debug(@" [%@] \n %@", responseObject.picUrlText,responseObject.describeText);
             }
         }
         // reset photos
         NSRange range ;
-        range.location = _requestPage*ONCE_REQUEST_COUNT_LIMIT;
+        // 要加上前滚的页数
+        range.location = (_requestPage+_requestForwardPageCount)*ONCE_REQUEST_COUNT_LIMIT;
         range.length = ONCE_REQUEST_COUNT_LIMIT;
         NSLog(@" ### range:(%d,%d)",range.location,range.length);
-        [[self photoSource] addPhotos:photoArray inRange:range];
+        [[self photoSource] setPhotos:photoArray inRange:range];
         if ([self respondsToSelector:@selector(loadScrollViewWithPage:)]) {
             [self loadScrollViewWithPage:range.location];            
         }
