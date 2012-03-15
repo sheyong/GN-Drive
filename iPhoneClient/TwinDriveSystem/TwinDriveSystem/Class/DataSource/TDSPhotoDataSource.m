@@ -50,17 +50,32 @@
     [_photos addObjectsFromArray:photos];
     _numberOfPhotos = [_photos count];    
 }
+- (void)addLoadingPhotosOfCount:(NSInteger)count atIndex:(NSInteger)index{
+    if (!_photos) {
+        _photos = [[NSMutableArray alloc] init];
+    }
+    // 容错
+    if (index < 0) {
+        index = 0;
+    }
+    else if (index > [_photos count] && [_photos count]>0) {
+        index = [_photos count];
+    }
+    
+    for (int i = index; i < index+count; i++) {
+        // add lazily
+        [_photos insertObject:[[[TDSPhotoView alloc] init] autorelease] atIndex:i];
+    }
+    _numberOfPhotos = [_photos count];    
+}
 - (void)addLoadingPhotosOfCount:(NSInteger)count{
     if (!_photos) {
         _photos = [[NSMutableArray alloc] init];
     }
-    for (int index = 0; index < count; index++) {
-        // add lazily
-        [_photos addObject: [[[TDSPhotoView alloc] init] autorelease] ];
-    }
-    _numberOfPhotos = [_photos count];    
+    NSInteger lastIndex = [_photos count];
+    [self addLoadingPhotosOfCount:count atIndex:lastIndex];
 }
-- (void)addPhotos:(NSArray *)photos inRange:(NSRange)range{
+- (void)setPhotos:(NSArray *)photos inRange:(NSRange)range{
     if (!_photos) {
         _photos = [[NSMutableArray alloc] init];
     }
@@ -71,6 +86,21 @@
     }else{
         [_photos replaceObjectsInRange:range withObjectsFromArray:photos];
     }
+    _numberOfPhotos = [_photos count];    
+}
+- (void)insertPhotos:(NSArray *)photos inRange:(NSRange)range{
+    if (!_photos) {
+        _photos = [[NSMutableArray alloc] init];
+    }
+    // 如果量不足现在拥有的，则直接添加
+    // 否则替换<>
+    if ([_photos count] < (range.location+range.length)) {
+        [self addPhotos:photos];
+    }else{
+        NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
+        [_photos insertObjects:photos atIndexes:indexSet];
+    }
+    _numberOfPhotos = [_photos count];
 }
 - (void)loadMorePhotos{
     if (!_photos) {

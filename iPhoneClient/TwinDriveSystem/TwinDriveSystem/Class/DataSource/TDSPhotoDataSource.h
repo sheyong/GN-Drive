@@ -20,9 +20,15 @@
 
 - (void)addPhotos:(NSArray *)photos;
 
+// 特定位置添加loadingView
+- (void)addLoadingPhotosOfCount:(NSInteger)count atIndex:(NSInteger)index;
+
+// 末尾添加loadingView
 - (void)addLoadingPhotosOfCount:(NSInteger)count;
 
-- (void)addPhotos:(NSArray *)photos inRange:(NSRange)range;
+- (void)insertPhotos:(NSArray *)photos inRange:(NSRange)range;
+
+- (void)setPhotos:(NSArray *)photos inRange:(NSRange)range;
 
 - (void)loadMorePhotos;
 
