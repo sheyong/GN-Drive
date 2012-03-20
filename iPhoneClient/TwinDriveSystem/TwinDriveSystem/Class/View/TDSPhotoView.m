@@ -32,8 +32,8 @@
 - (id)initWithPhotoViewItem:(TDSPhotoViewItem*)item{
     if (self = [super init]) {
         
-		_URL=[[NSURL URLWithString:item.picUrlText] retain];
-		_caption=[item.describeText retain];
+		_URL=[[NSURL URLWithString:item.photoUrl] retain];
+		_caption=[item.caption retain];
 		
 	}
 	

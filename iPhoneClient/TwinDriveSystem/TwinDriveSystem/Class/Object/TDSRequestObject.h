@@ -14,6 +14,6 @@
 
 @property (nonatomic, retain) NSURL *URL;
 @property (nonatomic, retain) NSMutableDictionary *parametersDic;
-
++ (TDSRequestObject*)request;
 + (id)requestObjectForQuery:(NSMutableDictionary*)query;
 @end

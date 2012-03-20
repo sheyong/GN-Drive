@@ -11,10 +11,15 @@
 @implementation TDSRequestObject
 @synthesize URL;
 @synthesize parametersDic = _parametersDic;
-+ (id)requestObjectForQuery:(NSMutableDictionary*)query{
+
++ (TDSRequestObject*)request{
     TDSRequestObject *requestObject = [[TDSRequestObject alloc] init];
-    requestObject.parametersDic = query;
     return [requestObject autorelease];
+}
++ (id)requestObjectForQuery:(NSMutableDictionary*)query{
+    TDSRequestObject *requestObject = [TDSRequestObject request];
+    requestObject.parametersDic = query;
+    return requestObject;
 }
 
 - (NSURL*)URL{

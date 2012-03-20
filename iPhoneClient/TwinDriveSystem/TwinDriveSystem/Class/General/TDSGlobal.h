@@ -14,4 +14,11 @@
 #import "SBJson.h"
 #import "TDSLogger.h"
 
+// notification
 #define TDSNewPhotoNotification           @"TDSNewPhotoNotification"
+
+// string
+#define ResponseAction_Version        @"version"
+#define ResponseAction_GetStartPage   @"get_start_page"
+#define ResponseAction_SinglePhoto    @"single"
+#define ResponseAction_MultiPhoto     @"get_multi"
