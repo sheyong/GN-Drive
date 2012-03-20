@@ -51,7 +51,7 @@
 		_photoSource = [[TDSPhotoDataSource alloc] init];
 		_pageIndex = 0;
         _requestPage = 0;
-        _requestForwardPageCount = 0;
+        _requestPrePageCount = 0;
 
         // 初始化载入Loading图
         [[self photoSource] addLoadingPhotosOfCount:ONCE_REQUEST_COUNT_LIMIT];
@@ -175,28 +175,22 @@
     }
     // 无限前滚逻辑
     // 在浏览到第一张照片的时候添加loadingView和请求
-    if (index == 0) 
+    if (index == 0 && _requestPage-_requestPrePageCount > 0) 
     {
         NSLog(@" ### now index = 0");
-        _requestForwardPageCount += 1;
-        NSMutableArray *photoArray = [NSMutableArray arrayWithCapacity:5];
-        for (int index = 0; index < ONCE_REQUEST_COUNT_LIMIT; index ++) {
-            TDSPhotoView *photoView = [[TDSPhotoView alloc] initWithImageURL:[NSURL URLWithString:@"http://img1.douban.com/view/photo/photo/public/p939471942.jpg"]];
-            [photoArray addObject:photoView];
-            [photoView release];
-        }
+        _requestPrePageCount += 1;
+        [[self photoSource] addLoadingPhotosOfCount:ONCE_REQUEST_COUNT_LIMIT atIndex:0];
         NSRange range;
         range.location = 0;
         range.length = ONCE_REQUEST_COUNT_LIMIT;
         for (unsigned i = 0; i < ONCE_REQUEST_COUNT_LIMIT; i++) {
             [self.photoViews insertObject:[NSNull null] atIndex:0];
         }
-        [[self photoSource] insertPhotos:photoArray inRange:range];
-        
         [self setupScrollViewContentSize];
-        
         [self moveToPhotoAtIndex:(index+ONCE_REQUEST_COUNT_LIMIT) animated:NO];
-        return;
+        
+        // send request
+        [self photosLoadMore:YES inPage:(_requestPage-_requestPrePageCount)];
     }
     // 无限后滚逻辑
     // 在最后2个内的时候重新请求
@@ -214,10 +208,6 @@
             [self photosLoadMore:YES inPage:(++_requestPage)];
         }
 	} 
-    
-    [self loadScrollViewWithPage:index-1];
-	[self loadScrollViewWithPage:index];
-	[self loadScrollViewWithPage:index+1];
 }
 
 #pragma mark - Private Function
@@ -228,16 +218,7 @@
     }
     return _photoViewNetControlCenter;
 }
-- (void)photosRequest:(int)type {
-    NSMutableDictionary *query = [NSMutableDictionary dictionary];
-//    if (more) {
-//        [query setObject:[NSNumber numberWithInt:index] forKey:@"start"];
-//    }else{
-        [query setObject:@"0" forKey:@"start"];
-//    }
-    TDSRequestObject *requestObject = [TDSRequestObject requestObjectForQuery:query];
-    [self.photoViewNetControlCenter sendRequestWithObject:requestObject];
-}
+
 - (void)photosLoadMore:(BOOL)more inPage:(NSInteger)page{
     if (page < 0) {
         return;
@@ -281,6 +262,8 @@
         NSLog(@"###### get page:%@",page);    
         _requestPage = [page intValue];
         _startPage = [page intValue];
+        // 获取到页码后重置下数据
+        [self moveToPhotoAtIndex:0 animated:NO];
         [self photosLoadMore:YES inPage:_requestPage];
     }
     // 单张照片
@@ -299,14 +282,22 @@
             if ([pics isKindOfClass:[NSArray class]]) {
                 
                 NSMutableArray *photoArray = [NSMutableArray arrayWithCapacity:[(NSArray*)pics count]];
+                NSNumber *nowId = nil;
                 for (NSDictionary *infoDic in (NSArray*)pics) {
                     TDSPhotoViewItem *photoItem = [TDSPhotoViewItem objectWithDictionary:infoDic];
                     TDSPhotoView *photoView = [TDSPhotoView photoWithItem:photoItem];
                     [photoArray addObject:photoView];
+                    nowId = [infoDic objectForKey:@"id"];
                 }
+                int requestPage = ([nowId intValue]/ONCE_REQUEST_COUNT_LIMIT)-1;
                 // 获取到图片后重置loadingPhoto为有效Photo
                 NSRange range ;
-                range.location = (_requestPage+_requestForwardPageCount-_startPage)*ONCE_REQUEST_COUNT_LIMIT;
+
+                if (requestPage<_requestPage) {// 插前面
+                    range.location = 0;
+                }else {// 插后面
+                    range.location = (_requestPage+_requestPrePageCount-_startPage)*ONCE_REQUEST_COUNT_LIMIT;
+                }
                 range.length = ONCE_REQUEST_COUNT_LIMIT;
                 NSLog(@" ### range:(%d,%d)",range.location,range.length);
                 [[self photoSource] setPhotos:photoArray inRange:range];

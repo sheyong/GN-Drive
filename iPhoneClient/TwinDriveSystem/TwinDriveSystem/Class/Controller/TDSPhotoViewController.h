@@ -13,7 +13,7 @@
     TDSNetControlCenter *_photoViewNetControlCenter;
     
     NSInteger _requestPage; // 请求页面
-    NSInteger _requestForwardPageCount; // 向前请求page技术
+    NSInteger _requestPrePageCount; // 向前请求page计数
     
     // TODO:持久化数据
     // 暂作为临时变量觉醒
