@@ -42,8 +42,8 @@ static TDSConfig *_globalConfig = nil;
     self = [super init]; 
     if (self) {
         
-//        self.mApiUrl = @"http://ofshellohicy.sinaapp.com/j_photo.php";// ?start=0
-        self.mApiUrl = @"http://ofshellohicy.sinaapp.com/api_photo.php";
+//        self.mApiUrl = @"http://ofshellohicy.sinaapp.com/api_photo.php";//?start=0
+        self.mApiUrl = @"http://morelife.sinaapp.com";
         //应用在appStore的ID
         self.appStoreId = @"1010101";
         // App ID
@@ -52,7 +52,7 @@ static TDSConfig *_globalConfig = nil;
         self.fromType = @"9100301";
         self.fromID = self.fromType;
         
-        self.version = @"1.0.0"; // 版本号必须保持三位的格式
+        self.version = @"1";        // 版本号
         self.clientName = @"TwinDriveSystem";
         self.model = @"iPhone";
         

@@ -17,7 +17,8 @@
 #define MAC_COUNT_LIMIT 200
 
 @interface TDSPhotoViewController(Private)
-- (void)photosLoadMore:(BOOL)more ofSize:(NSInteger)index;
+- (void)photosLoadMore:(BOOL)more inPage:(NSInteger)page;
+- (void)updateByResponseDic:(NSMutableDictionary *)responseDic;
 @end
 @interface TDSPhotoViewController(Super)
 - (void)setupScrollViewContentSize;
@@ -50,10 +51,13 @@
 		_photoSource = [[TDSPhotoDataSource alloc] init];
 		_pageIndex = 0;
         _requestPage = 0;
-        _requestForwardPageCount = 0;
+        _requestPrePageCount = 0;
 
         // 初始化载入Loading图
         [[self photoSource] addLoadingPhotosOfCount:ONCE_REQUEST_COUNT_LIMIT];
+        
+        _startPage = 0;
+        _startIndex = 0;
     }
     return self;
 }
@@ -62,20 +66,22 @@
 }
 #pragma mark - View lifecycle
 
-/*
+
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {
+    [super loadView];
+    // 启动获得初始页面
+    // TODO:获取缓存页数，下面每次都请求了个最新页数
+    [self photosLoadMore:NO inPage:0];
 }
-*/
+
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    [self photosLoadMore:NO ofSize:(_requestPage*ONCE_REQUEST_COUNT_LIMIT)];
 }
 
 - (void)viewDidUnload
@@ -169,28 +175,22 @@
     }
     // 无限前滚逻辑
     // 在浏览到第一张照片的时候添加loadingView和请求
-    if (index == 0) 
+    if (index == 0 && _requestPage-_requestPrePageCount > 0) 
     {
         NSLog(@" ### now index = 0");
-        _requestForwardPageCount += 1;
-        NSMutableArray *photoArray = [NSMutableArray arrayWithCapacity:5];
-        for (int index = 0; index < ONCE_REQUEST_COUNT_LIMIT; index ++) {
-            TDSPhotoView *photoView = [[TDSPhotoView alloc] initWithImageURL:[NSURL URLWithString:@"http://img1.douban.com/view/photo/photo/public/p939471942.jpg"]];
-            [photoArray addObject:photoView];
-            [photoView release];
-        }
+        _requestPrePageCount += 1;
+        [[self photoSource] addLoadingPhotosOfCount:ONCE_REQUEST_COUNT_LIMIT atIndex:0];
         NSRange range;
         range.location = 0;
         range.length = ONCE_REQUEST_COUNT_LIMIT;
         for (unsigned i = 0; i < ONCE_REQUEST_COUNT_LIMIT; i++) {
             [self.photoViews insertObject:[NSNull null] atIndex:0];
         }
-        [[self photoSource] insertPhotos:photoArray inRange:range];
-        
         [self setupScrollViewContentSize];
-        
         [self moveToPhotoAtIndex:(index+ONCE_REQUEST_COUNT_LIMIT) animated:NO];
-        return;
+        
+        // send request
+        [self photosLoadMore:YES inPage:(_requestPage-_requestPrePageCount)];
     }
     // 无限后滚逻辑
     // 在最后2个内的时候重新请求
@@ -205,13 +205,9 @@
             }
             [self setupScrollViewContentSize];
             // send request
-            [self photosLoadMore:YES ofSize:(++_requestPage)*ONCE_REQUEST_COUNT_LIMIT];
+            [self photosLoadMore:YES inPage:(++_requestPage)];
         }
 	} 
-    
-    [self loadScrollViewWithPage:index-1];
-	[self loadScrollViewWithPage:index];
-	[self loadScrollViewWithPage:index+1];
 }
 
 #pragma mark - Private Function
@@ -222,15 +218,21 @@
     }
     return _photoViewNetControlCenter;
 }
-- (void)photosRequest:(int)type {
-    NSMutableDictionary *query = [NSMutableDictionary dictionary];
-//    if (more) {
-//        [query setObject:[NSNumber numberWithInt:index] forKey:@"start"];
-//    }else{
-        [query setObject:@"0" forKey:@"start"];
-//    }
-    TDSRequestObject *requestObject = [TDSRequestObject requestObjectForQuery:query];
-    [self.photoViewNetControlCenter sendRequestWithObject:requestObject];
+
+- (void)photosLoadMore:(BOOL)more inPage:(NSInteger)page{
+    if (page < 0) {
+        return;
+    }
+    TDSConfig *config = [TDSConfig getInstance];
+    NSMutableString *requestString = [NSMutableString stringWithString:config.mApiUrl];
+    if (more) {
+        [requestString appendFormat:@"/v/%@/snaps/%d/",config.version,page];
+    }else{
+        [requestString appendFormat:@"/v/%@/user/%@/start_page/",config.version,config.udid];        
+    }
+    
+    NSURL *requestURL = [NSURL URLWithString:requestString];
+    [self.photoViewNetControlCenter sendRequestWithObject:requestURL];
 }
 - (void)photosLoadMore:(BOOL)more ofSize:(NSInteger)index{
 
@@ -243,7 +245,75 @@
     TDSRequestObject *requestObject = [TDSRequestObject requestObjectForQuery:query];
     [self.photoViewNetControlCenter sendRequestWithObject:requestObject];
 }
+- (void)updateByResponseDic:(NSMutableDictionary *)responseDic{
+    NSString *actionString = [responseDic objectForKey:@"action"];
+    if (actionString == nil || [actionString isEqualToString:@""]) {
+        return;
+    }
+    // 获取当前版本
+    if ([actionString isEqualToString:ResponseAction_Version]) {
+        NSNumber *version = [responseDic objectForKey:@"version"];
+        NSLog(@"###### get version:%@",version);
+        [TDSConfig getInstance].version = [version stringValue];
+    }
+    // 获取首页
+    else if([actionString isEqualToString:ResponseAction_GetStartPage]){
+        NSNumber *page = [responseDic objectForKey:@"page"];
+        NSLog(@"###### get page:%@",page);    
+        _requestPage = [page intValue];
+        _startPage = [page intValue];
+        // 获取到页码后重置下数据
+        [self moveToPhotoAtIndex:0 animated:NO];
+        [self photosLoadMore:YES inPage:_requestPage];
+    }
+    // 单张照片
+    else if([actionString isEqualToString:ResponseAction_SinglePhoto]){
+        NSNumber *pId = [responseDic objectForKey:@"id"];
+        NSString *caption = [responseDic objectForKey:@"text"];
+        NSString *url = [responseDic objectForKey:@"url"];
+        NSLog(@"######\n get single photo[%@]:%@\n%@",pId,url,caption);                        
+    }
+    // 多张照片
+    else if([actionString isEqualToString:ResponseAction_MultiPhoto]){
+        BOOL more = [[responseDic objectForKey:@"more"]  boolValue];
+        NSArray *pics = nil;
+        if (more) {
+            pics = [responseDic objectForKey:@"pics"];
+            if ([pics isKindOfClass:[NSArray class]]) {
+                
+                NSMutableArray *photoArray = [NSMutableArray arrayWithCapacity:[(NSArray*)pics count]];
+                NSNumber *nowId = nil;
+                for (NSDictionary *infoDic in (NSArray*)pics) {
+                    TDSPhotoViewItem *photoItem = [TDSPhotoViewItem objectWithDictionary:infoDic];
+                    TDSPhotoView *photoView = [TDSPhotoView photoWithItem:photoItem];
+                    [photoArray addObject:photoView];
+                    nowId = [infoDic objectForKey:@"id"];
+                }
+                int requestPage = ([nowId intValue]/ONCE_REQUEST_COUNT_LIMIT)-1;
+                // 获取到图片后重置loadingPhoto为有效Photo
+                NSRange range ;
 
+                if (requestPage<_requestPage) {// 插前面
+                    range.location = 0;
+                }else {// 插后面
+                    range.location = (_requestPage+_requestPrePageCount-_startPage)*ONCE_REQUEST_COUNT_LIMIT;
+                }
+                range.length = ONCE_REQUEST_COUNT_LIMIT;
+                NSLog(@" ### range:(%d,%d)",range.location,range.length);
+                [[self photoSource] setPhotos:photoArray inRange:range];
+                // 如果当前页面得到数据了，则刷新下显示
+                if (_pageIndex>=range.location && _pageIndex<=(range.location+range.length)) {
+                    [self loadScrollViewWithPage:_pageIndex-1];                        
+                    [self loadScrollViewWithPage:_pageIndex];            
+                    [self loadScrollViewWithPage:_pageIndex+1];            
+                }
+            }
+        }else {
+            // TODO:没有更多照片了
+        }
+        NSLog(@"###### [%d]\n%@",more,pics);
+    }
+}
 #pragma mark - TDSNetControlCenterDelegate
 
 - (void)tdsNetControlCenter:(TDSNetControlCenter*)netControlCenter requestDidStartRequest:(id)response{
@@ -253,32 +323,7 @@
     TDSLOG_debug(@"result :%@",response );
     if ([response isKindOfClass:[TDSResponseObject class]]) {
         TDSResponseObject *responseObject = (TDSResponseObject *)response;
-        
-        NSMutableDictionary *responseDic = (NSMutableDictionary*)responseObject.rootObject;
-        NSMutableArray *photoArray = [NSMutableArray arrayWithCapacity:[responseDic.allKeys count]];
-        for (id key in responseDic.allKeys) {
-            NSDictionary *infoDic = [responseDic objectForKey:key];
-            TDSPhotoViewItem *photoItem = [TDSPhotoViewItem objectWithDictionary:infoDic];
-            photoItem.kWeiboID = (NSString*)key;
-            TDSPhotoView *photoView = [TDSPhotoView photoWithItem:photoItem];
-            [photoArray addObject:photoView];
-            TDSLOG_info(@"key:[%@] \n[%@] \n[%@]",photoItem.kWeiboID,
-                         photoItem.picUrlText,
-                         photoItem.describeText);
-        }
-        // reset photos
-        NSRange range ;
-        // 要加上前滚的页数
-        range.location = (_requestPage+_requestForwardPageCount)*ONCE_REQUEST_COUNT_LIMIT;
-        range.length = ONCE_REQUEST_COUNT_LIMIT;
-        NSLog(@" ### range:(%d,%d)",range.location,range.length);
-        [[self photoSource] setPhotos:photoArray inRange:range];
-        // 如果当前页面得到数据了，则刷新下显示
-        if (_pageIndex>=range.location && _pageIndex<=(range.location+range.length)) {
-            [self loadScrollViewWithPage:_pageIndex-1];                        
-            [self loadScrollViewWithPage:_pageIndex];            
-            [self loadScrollViewWithPage:_pageIndex+1];            
-        }
+        [self updateByResponseDic:(NSMutableDictionary*)responseObject.rootObject];
     }
 }
 

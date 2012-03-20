@@ -30,7 +30,6 @@
 
 - (void)setPhotos:(NSArray *)photos inRange:(NSRange)range;
 
-- (void)loadMorePhotos;
 
 @end
 

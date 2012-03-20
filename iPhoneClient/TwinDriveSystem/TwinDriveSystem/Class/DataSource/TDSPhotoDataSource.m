@@ -102,12 +102,5 @@
     }
     _numberOfPhotos = [_photos count];
 }
-- (void)loadMorePhotos{
-    if (!_photos) {
-        return;
-    }
-    // TODO:网络层部分
-
-}
 
 @end

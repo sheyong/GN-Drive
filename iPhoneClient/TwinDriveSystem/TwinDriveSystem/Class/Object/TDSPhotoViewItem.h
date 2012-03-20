@@ -9,16 +9,13 @@
 #import <Foundation/Foundation.h>
 
 @interface TDSPhotoViewItem : NSObject{
-    NSString *_kWeiboID;
-    NSString *_describeText;
-    NSString *_picUrlText;
-    NSDate   *_createTime;
-
+    NSNumber *_pid;
+    NSString *_caption;
+    NSString *_photoUrl;
 }
-@property (nonatomic, copy) NSString *kWeiboID;
-@property (nonatomic, copy) NSString *describeText;
-@property (nonatomic, copy) NSString *picUrlText;
-@property (nonatomic, copy) NSDate   *createTime;
+@property (nonatomic, retain) NSNumber *pid;
+@property (nonatomic, copy) NSString *caption;
+@property (nonatomic, copy) NSString *photoUrl;
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 + (TDSPhotoViewItem *)objectWithDictionary:(NSDictionary *)dictionary;
