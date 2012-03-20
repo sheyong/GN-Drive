@@ -8,6 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TDSPhotoViewItem : NSObject
+@interface TDSPhotoViewItem : NSObject{
+    NSString *_kWeiboID;
+    NSString *_describeText;
+    NSString *_picUrlText;
+    NSDate   *_createTime;
+
+}
+@property (nonatomic, copy) NSString *kWeiboID;
+@property (nonatomic, copy) NSString *describeText;
+@property (nonatomic, copy) NSString *picUrlText;
+@property (nonatomic, copy) NSDate   *createTime;
+
+- (id)initWithDictionary:(NSDictionary *)dictionary;
++ (TDSPhotoViewItem *)objectWithDictionary:(NSDictionary *)dictionary;
 
 @end

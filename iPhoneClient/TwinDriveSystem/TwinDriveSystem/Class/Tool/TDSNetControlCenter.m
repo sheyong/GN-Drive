@@ -10,8 +10,8 @@
 #import "ASINetworkQueue.h"
 #import "TDSResponseObject.h"
 #import "ASIFormDataRequest.h"
-#import "TDSResponseObject.h"
 #import "TDSRequestObject.h"
+#import "TDSPhotoViewItem.h"
 
 @interface TDSNetControlCenter (Private)
 - (void)requestDidStartSelector:(ASIHTTPRequest *)request;
@@ -90,34 +90,25 @@
 }
 
 - (void)requestDidFinishSelector:(ASIHTTPRequest *)request{
+    TDSLOG_info(@" requestDidFinishSelector");
+    TDSResponseObject *responseObject = [TDSResponseObject response];
     // json 格式
-    NSMutableDictionary *responseDic = (NSMutableDictionary*)[request.responseString JSONValue];
-
-    NSMutableArray *responseArray = [NSMutableArray arrayWithCapacity:[responseDic.allKeys count]];
-    for (id key in responseDic.allKeys) {
-        NSDictionary *infoDic = [responseDic objectForKey:key];
-        TDSResponseObject *responseObject = [TDSResponseObject objectWithDictionary:infoDic];
-        responseObject.kWeiboID = (NSString*)key;
-        [responseArray addObject:responseObject];
-        TDSLOG_info(@" requestDidFinishSelector");
-        TDSLOG_info(@"key:[%@] createTime:[%@] url[%@] text[%@]",responseObject.kWeiboID,
-                                                         responseObject.createTime,
-                                                         responseObject.picUrlText,
-                                                         responseObject.describeText);
-    }
+    responseObject.rootObject = [request.responseString JSONValue];
     // 回调
     if (self.delegate != nil && [self.delegate respondsToSelector:@selector(tdsNetControlCenter:requestDidFinishedLoad:)]) {
-        [self.delegate tdsNetControlCenter:self requestDidFinishedLoad:responseArray];
+        [self.delegate tdsNetControlCenter:self requestDidFinishedLoad:responseObject];
     }
 }
 - (void)requestDidFailSelector:(ASIHTTPRequest *)request{
     TDSLOG_info(@" requestDidFailSelector");    
     TDSLOG_error(@"error:%@",request.responseString);
-    TDSResponseObject *responseObject = nil;
+    TDSResponseObject *responseObject = [TDSResponseObject response];
+    responseObject.error = request.error;
     // 回调
-    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(tdsNetControlCenter:requestDidFailedLoad::)]) {
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(tdsNetControlCenter:requestDidFailedLoad:)]) {
         [self.delegate tdsNetControlCenter:self requestDidFailedLoad:responseObject];
-    }
+    }    
+    return;
 }
 
 @end
