@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@class TDSResponseObject;
+@class TDSPhotoViewItem;
 @interface TDSPhotoView : NSObject <EGOPhoto>{
     
     NSURL *_URL;
@@ -18,8 +18,8 @@
     BOOL _failed;
     
 }
-
-- (id)initWithResponseObject:(TDSResponseObject*)responseObject;
++ (TDSPhotoView*)photoWithItem:(TDSPhotoViewItem*)item;
+- (id)initWithPhotoViewItem:(TDSPhotoViewItem*)item;
 
 - (id)initWithImageURL:(NSURL*)aURL name:(NSString*)aName image:(UIImage*)aImage;
 - (id)initWithImageURL:(NSURL*)aURL name:(NSString*)aName;

@@ -15,7 +15,8 @@
     NSInteger _requestPage; // 请求页面
     NSInteger _requestForwardPageCount; // 向前请求page技术
     
-    BOOL _firstLoad; // 第一次载入
 }
+@property (nonatomic, retain)TDSNetControlCenter *photoViewNetControlCenter;
 - (TDSPhotoDataSource *)photoSource; // 这尼玛为啥会是readOnly，暴露出来
+
 @end

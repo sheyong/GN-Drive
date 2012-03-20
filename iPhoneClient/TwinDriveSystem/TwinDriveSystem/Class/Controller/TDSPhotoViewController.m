@@ -11,6 +11,7 @@
 #import "TDSPhotoDataSource.h"
 #import "TDSRequestObject.h"
 #import "TDSResponseObject.h"
+#import "TDSPhotoViewItem.h"
 
 #define ONCE_REQUEST_COUNT_LIMIT 5
 #define MAC_COUNT_LIMIT 200
@@ -23,11 +24,11 @@
 - (void)loadScrollViewWithPage:(NSInteger)page;
 @end
 @implementation TDSPhotoViewController
-
+@synthesize photoViewNetControlCenter = _photoViewNetControlCenter;
 
 #pragma mark - 
 - (void)dealloc{
-    [_photoViewNetControlCenter release];
+    self.photoViewNetControlCenter = nil;
     [super dealloc];
 }
 - (void)didReceiveMemoryWarning
@@ -50,7 +51,7 @@
 		_pageIndex = 0;
         _requestPage = 0;
         _requestForwardPageCount = 0;
-        _firstLoad = YES;
+
         // 初始化载入Loading图
         [[self photoSource] addLoadingPhotosOfCount:ONCE_REQUEST_COUNT_LIMIT];
     }
@@ -95,24 +96,6 @@
 }
 #pragma mark - Super Function
 
-- (void)testAddMoreImage{
-    int nowIndex = [self.photoSource numberOfPhotos]+1;
-    TDSPhotoView *photo = [[TDSPhotoView alloc] initWithImageURL:[NSURL URLWithString:@"http://ww4.sinaimg.cn/bmiddle/8136e213jw1dmwr3ivzrhj.jpg"] name:[NSString stringWithFormat:@"ceshi %d",nowIndex]];
-    TDSPhotoView *photo2 = [[TDSPhotoView alloc] initWithImageURL:[NSURL URLWithString:@"http://pic13.nipic.com/20110307/6860000_151209260116_2.jpg"] name:[NSString stringWithFormat:@"Exia %d",nowIndex+1]];
-    TDSPhotoView *photo3 = [[TDSPhotoView alloc] initWithImageURL:[NSURL URLWithString:@"http://img3.douban.com/mpic/s3517475.jpg"] name:[NSString stringWithFormat:@"Music %d",nowIndex+2]];
-    [[self photoSource] addPhotos:[NSArray arrayWithObjects:photo,photo2,photo3,nil]];
-    [photo release];
-    [photo2 release];
-    [photo3 release];
-    //  load photoviews lazily
-    
-    for (unsigned i = 0; i < ONCE_REQUEST_COUNT_LIMIT; i++) {
-        [self.photoViews addObject:[NSNull null]];
-    }
-    if ([self respondsToSelector:@selector(setupScrollViewContentSize)]) {
-        [self performSelector:@selector(setupScrollViewContentSize)];
-    }
-}
 - (void)loadScrollViewWithPage:(NSInteger)page {
 	
     if (page < 0) return;
@@ -177,43 +160,17 @@
     NSLog(@" ##all:%d   %d",[self.photoViews count],[self.photoSource numberOfPhotos]);
 	NSLog(@" @@@ move to :%d",index);
     
-    // 第一次载入，改为浏览第二张图
-    // 为了能简单实现无限前滚
-    if (index == 0 
-        && _firstLoad 
-        && [self.photoSource numberOfPhotos]>0 
-        && [self.photoViews count]>0) 
-    {
-        [self moveToPhotoAtIndex:1 animated:NO];
-        _firstLoad = NO;
-    }
     // 超过一天能看的总数了
-    else if([self.photoViews count] >= MAC_COUNT_LIMIT){
+    if([self.photoViews count] >= MAC_COUNT_LIMIT){
         NSLog(@" mo~ ");
-        // TODO:时间戳
     }
-    // 无限后滚逻辑
-    // 在最后2个内的时候重新请求
-	else if (index + 1 >= [self.photoSource numberOfPhotos]-1) {
-        // TODO: 请求新数据
-        // 《记得加锁哟，亲》添加测试数据
-        @synchronized(self){
-            // load photoSource first
-            [[self photoSource] addLoadingPhotosOfCount:ONCE_REQUEST_COUNT_LIMIT];
-            for (unsigned i = 0; i < ONCE_REQUEST_COUNT_LIMIT; i++) {
-                [self.photoViews addObject:[NSNull null]];
-            }
-            if ([self respondsToSelector:@selector(setupScrollViewContentSize)]) {
-                [self performSelector:@selector(setupScrollViewContentSize)];
-            }
-            // send request
-            [self photosLoadMore:YES ofSize:(++_requestPage)*ONCE_REQUEST_COUNT_LIMIT];
-        }
-	} 
-//    /*
+    else if([self.photoSource numberOfPhotos]<=0 || [self.photoViews count]<=0){
+        return;
+    }
     // 无限前滚逻辑
     // 在浏览到第一张照片的时候添加loadingView和请求
-    else if (index == 0 && !_firstLoad ) {
+    if (index == 0) 
+    {
         NSLog(@" ### now index = 0");
         _requestForwardPageCount += 1;
         NSMutableArray *photoArray = [NSMutableArray arrayWithCapacity:5];
@@ -229,25 +186,54 @@
             [self.photoViews insertObject:[NSNull null] atIndex:0];
         }
         [[self photoSource] insertPhotos:photoArray inRange:range];
-
-        if ([self respondsToSelector:@selector(setupScrollViewContentSize)]) {
-            [self performSelector:@selector(setupScrollViewContentSize)];
-        }
+        
+        [self setupScrollViewContentSize];
+        
         [self moveToPhotoAtIndex:(index+ONCE_REQUEST_COUNT_LIMIT) animated:NO];
+        return;
     }
-     //*/
+    // 无限后滚逻辑
+    // 在最后2个内的时候重新请求
+	else if (index + 1 >= [self.photoSource numberOfPhotos]-1) {
+        // TODO: 请求新数据
+        // 《记得加锁哟，亲》添加测试数据
+        @synchronized(self){
+            // load photoSource first
+            [[self photoSource] addLoadingPhotosOfCount:ONCE_REQUEST_COUNT_LIMIT];
+            for (unsigned i = 0; i < ONCE_REQUEST_COUNT_LIMIT; i++) {
+                [self.photoViews addObject:[NSNull null]];
+            }
+            [self setupScrollViewContentSize];
+            // send request
+            [self photosLoadMore:YES ofSize:(++_requestPage)*ONCE_REQUEST_COUNT_LIMIT];
+        }
+	} 
+    
     [self loadScrollViewWithPage:index-1];
 	[self loadScrollViewWithPage:index];
 	[self loadScrollViewWithPage:index+1];
 }
 
 #pragma mark - Private Function
-
-- (void)photosLoadMore:(BOOL)more ofSize:(NSInteger)index{
+- (TDSNetControlCenter*)photoViewNetControlCenter{
     if (!_photoViewNetControlCenter) {
         _photoViewNetControlCenter = [[TDSNetControlCenter alloc] init];
         _photoViewNetControlCenter.delegate = self;
     }
+    return _photoViewNetControlCenter;
+}
+- (void)photosRequest:(int)type {
+    NSMutableDictionary *query = [NSMutableDictionary dictionary];
+//    if (more) {
+//        [query setObject:[NSNumber numberWithInt:index] forKey:@"start"];
+//    }else{
+        [query setObject:@"0" forKey:@"start"];
+//    }
+    TDSRequestObject *requestObject = [TDSRequestObject requestObjectForQuery:query];
+    [self.photoViewNetControlCenter sendRequestWithObject:requestObject];
+}
+- (void)photosLoadMore:(BOOL)more ofSize:(NSInteger)index{
+
     NSMutableDictionary *query = [NSMutableDictionary dictionary];
     if (more) {
         [query setObject:[NSNumber numberWithInt:index] forKey:@"start"];
@@ -255,27 +241,30 @@
         [query setObject:@"0" forKey:@"start"];
     }
     TDSRequestObject *requestObject = [TDSRequestObject requestObjectForQuery:query];
-    [_photoViewNetControlCenter sendRequestWithObject:requestObject];
+    [self.photoViewNetControlCenter sendRequestWithObject:requestObject];
 }
 
 #pragma mark - TDSNetControlCenterDelegate
 
 - (void)tdsNetControlCenter:(TDSNetControlCenter*)netControlCenter requestDidStartRequest:(id)response{
-    
+    TDSLOG_debug(@"start request" );    
 }
 - (void)tdsNetControlCenter:(TDSNetControlCenter*)netControlCenter requestDidFinishedLoad:(id)response{
     TDSLOG_debug(@"result :%@",response );
-    if ([response isKindOfClass:[NSArray class]]) {
-        NSArray *responseArray = (NSArray *)response;
-        NSMutableArray *photoArray = [NSMutableArray arrayWithCapacity:[responseArray count]];
-        for (id object in responseArray) {
-            if ([object isKindOfClass:[TDSResponseObject class]]) {
-                TDSResponseObject *responseObject = (TDSResponseObject*)object;
-                TDSPhotoView *photoView = [[TDSPhotoView alloc] initWithResponseObject:responseObject];
-                [photoArray addObject:photoView];
-                [photoView release];
-                TDSLOG_debug(@" [%@] \n %@", responseObject.picUrlText,responseObject.describeText);
-            }
+    if ([response isKindOfClass:[TDSResponseObject class]]) {
+        TDSResponseObject *responseObject = (TDSResponseObject *)response;
+        
+        NSMutableDictionary *responseDic = (NSMutableDictionary*)responseObject.rootObject;
+        NSMutableArray *photoArray = [NSMutableArray arrayWithCapacity:[responseDic.allKeys count]];
+        for (id key in responseDic.allKeys) {
+            NSDictionary *infoDic = [responseDic objectForKey:key];
+            TDSPhotoViewItem *photoItem = [TDSPhotoViewItem objectWithDictionary:infoDic];
+            photoItem.kWeiboID = (NSString*)key;
+            TDSPhotoView *photoView = [TDSPhotoView photoWithItem:photoItem];
+            [photoArray addObject:photoView];
+            TDSLOG_info(@"key:[%@] \n[%@] \n[%@]",photoItem.kWeiboID,
+                         photoItem.picUrlText,
+                         photoItem.describeText);
         }
         // reset photos
         NSRange range ;
