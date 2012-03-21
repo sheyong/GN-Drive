@@ -13,7 +13,8 @@
 #import "ASIHTTPRequest.h"
 #import "SBJson.h"
 #import "TDSLogger.h"
-
+#import "NSString+NSStringExt.h"
+#import "UIDevice+UIDeviceExt.h"
 // notification
 #define TDSNewPhotoNotification           @"TDSNewPhotoNotification"
 

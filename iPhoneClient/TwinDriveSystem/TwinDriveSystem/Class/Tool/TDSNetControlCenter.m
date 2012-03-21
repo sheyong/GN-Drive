@@ -13,6 +13,9 @@
 #import "TDSRequestObject.h"
 #import "TDSPhotoViewItem.h"
 
+
+#define RETRY_TIMES 3
+
 @interface TDSNetControlCenter (Private)
 - (void)requestDidStartSelector:(ASIHTTPRequest *)request;
 - (void)requestDidFinishSelector:(ASIHTTPRequest *)request;
@@ -69,7 +72,7 @@
         [asiRequest setTimeOutSeconds:config.httpTimeout];
         [asiRequest setDefaultResponseEncoding:NSUTF8StringEncoding];
         [asiRequest setCachePolicy:NSURLRequestReloadIgnoringCacheData];
-        
+        [asiRequest setNumberOfTimesToRetryOnTimeout:RETRY_TIMES];
         [self.operationQueue addOperation:asiRequest];     
 
     }
