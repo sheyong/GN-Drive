@@ -64,7 +64,7 @@ static TDSConfig *_globalConfig = nil;
 
 - (NSString *)udid {
     UIDevice *device = [UIDevice currentDevice];
-    NSString *udid = device.uniqueIdentifier;
+    NSString *udid = [[device macAddress] MD5String];
     
     return udid;
 }

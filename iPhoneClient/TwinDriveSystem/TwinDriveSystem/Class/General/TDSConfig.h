@@ -48,7 +48,7 @@
 + (TDSConfig* )getInstance;
 
 /**
- * @return 设备唯一标识。如果UIDevice.uniqueIdentifier不为空，那么返回uniqueIdentifier，否则返回nil
+ * @return 设备唯一标识,返回MD5后的MAC地址
  */
 - (NSString *)udid;
 // app id

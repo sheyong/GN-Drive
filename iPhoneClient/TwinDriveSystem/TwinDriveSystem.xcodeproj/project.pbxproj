@@ -80,6 +80,9 @@
 		2FB05F4114FD556D00AD77AB /* TDSMainScreenTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB05F4014FD556D00AD77AB /* TDSMainScreenTabBar.m */; };
 		2FB4DE1E15025D0200FC5D56 /* TDSPhotoDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB4DE1D15025D0200FC5D56 /* TDSPhotoDataSource.m */; };
 		2FFD71DB151880E90050DB12 /* TDSPhotoViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFD71DA151880E90050DB12 /* TDSPhotoViewItem.m */; };
+		2FFD7243151983A50050DB12 /* UIDevice+UIDeviceExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFD7242151983A50050DB12 /* UIDevice+UIDeviceExt.m */; };
+		2FFD72471519846F0050DB12 /* NSString+NSStringExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFD72461519846F0050DB12 /* NSString+NSStringExt.m */; };
+		2FFD7249151988FB0050DB12 /* TDSGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFD7248151988FB0050DB12 /* TDSGlobal.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -251,6 +254,11 @@
 		2FB4DE1D15025D0200FC5D56 /* TDSPhotoDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSPhotoDataSource.m; sourceTree = "<group>"; };
 		2FFD71D9151880E90050DB12 /* TDSPhotoViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSPhotoViewItem.h; sourceTree = "<group>"; };
 		2FFD71DA151880E90050DB12 /* TDSPhotoViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSPhotoViewItem.m; sourceTree = "<group>"; };
+		2FFD7241151983A50050DB12 /* UIDevice+UIDeviceExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+UIDeviceExt.h"; sourceTree = "<group>"; };
+		2FFD7242151983A50050DB12 /* UIDevice+UIDeviceExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+UIDeviceExt.m"; sourceTree = "<group>"; };
+		2FFD72451519846F0050DB12 /* NSString+NSStringExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NSStringExt.h"; sourceTree = "<group>"; };
+		2FFD72461519846F0050DB12 /* NSString+NSStringExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+NSStringExt.m"; sourceTree = "<group>"; };
+		2FFD7248151988FB0050DB12 /* TDSGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSGlobal.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -609,6 +617,7 @@
 			isa = PBXGroup;
 			children = (
 				2FB05F3B14FD509600AD77AB /* TDSGlobal.h */,
+				2FFD7248151988FB0050DB12 /* TDSGlobal.m */,
 				2F021C7C14E80FCD003388B6 /* TDSConfigDelegate.h */,
 				2F021C5E14E80B79003388B6 /* TDSConfig.h */,
 				2F021C5F14E80B79003388B6 /* TDSConfig.m */,
@@ -694,6 +703,7 @@
 		2FB05F1114FD0AB200AD77AB /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				2FFD7244151983AC0050DB12 /* CocoaExt */,
 				2FB05F1214FD0B7200AD77AB /* TDSNetControlCenter.h */,
 				2FB05F1314FD0B7200AD77AB /* TDSNetControlCenter.m */,
 			);
@@ -739,6 +749,17 @@
 				2FB05F1714FD0FF700AD77AB /* TDSResponseObject.m */,
 			);
 			name = NetWorkObject;
+			sourceTree = "<group>";
+		};
+		2FFD7244151983AC0050DB12 /* CocoaExt */ = {
+			isa = PBXGroup;
+			children = (
+				2FFD7241151983A50050DB12 /* UIDevice+UIDeviceExt.h */,
+				2FFD7242151983A50050DB12 /* UIDevice+UIDeviceExt.m */,
+				2FFD72451519846F0050DB12 /* NSString+NSStringExt.h */,
+				2FFD72461519846F0050DB12 /* NSString+NSStringExt.m */,
+			);
+			name = CocoaExt;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -903,6 +924,9 @@
 				2F0C74B514FFF92F00BF496C /* TDSLogger.m in Sources */,
 				2FB4DE1E15025D0200FC5D56 /* TDSPhotoDataSource.m in Sources */,
 				2FFD71DB151880E90050DB12 /* TDSPhotoViewItem.m in Sources */,
+				2FFD7243151983A50050DB12 /* UIDevice+UIDeviceExt.m in Sources */,
+				2FFD72471519846F0050DB12 /* NSString+NSStringExt.m in Sources */,
+				2FFD7249151988FB0050DB12 /* TDSGlobal.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
