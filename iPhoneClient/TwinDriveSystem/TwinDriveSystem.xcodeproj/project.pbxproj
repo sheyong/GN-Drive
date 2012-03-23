@@ -80,6 +80,11 @@
 		2FB05F4114FD556D00AD77AB /* TDSMainScreenTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB05F4014FD556D00AD77AB /* TDSMainScreenTabBar.m */; };
 		2FB4DE1E15025D0200FC5D56 /* TDSPhotoDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB4DE1D15025D0200FC5D56 /* TDSPhotoDataSource.m */; };
 		2FFD71DB151880E90050DB12 /* TDSPhotoViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFD71DA151880E90050DB12 /* TDSPhotoViewItem.m */; };
+		8303DFA2151CAF48009C6FC9 /* tabbar_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 8303DFA1151CAF48009C6FC9 /* tabbar_background.png */; };
+		8303DFA4151CB1D7009C6FC9 /* thumbView.png in Resources */ = {isa = PBXBuildFile; fileRef = 8303DFA3151CB1D7009C6FC9 /* thumbView.png */; };
+		8303DFA6151CB327009C6FC9 /* feed.png in Resources */ = {isa = PBXBuildFile; fileRef = 8303DFA5151CB327009C6FC9 /* feed.png */; };
+		8303DFA9151CB449009C6FC9 /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = 8303DFA7151CB449009C6FC9 /* heart.png */; };
+		8303DFAA151CB449009C6FC9 /* more.png in Resources */ = {isa = PBXBuildFile; fileRef = 8303DFA8151CB449009C6FC9 /* more.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -251,6 +256,11 @@
 		2FB4DE1D15025D0200FC5D56 /* TDSPhotoDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSPhotoDataSource.m; sourceTree = "<group>"; };
 		2FFD71D9151880E90050DB12 /* TDSPhotoViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSPhotoViewItem.h; sourceTree = "<group>"; };
 		2FFD71DA151880E90050DB12 /* TDSPhotoViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSPhotoViewItem.m; sourceTree = "<group>"; };
+		8303DFA1151CAF48009C6FC9 /* tabbar_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbar_background.png; sourceTree = "<group>"; };
+		8303DFA3151CB1D7009C6FC9 /* thumbView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thumbView.png; sourceTree = "<group>"; };
+		8303DFA5151CB327009C6FC9 /* feed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = feed.png; sourceTree = "<group>"; };
+		8303DFA7151CB449009C6FC9 /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart.png; sourceTree = "<group>"; };
+		8303DFA8151CB449009C6FC9 /* more.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = more.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -331,6 +341,7 @@
 		2F7F5B2A14E7859F0010F670 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8303DF9F151CAF28009C6FC9 /* pics */,
 				2F7F5D9414E7C3450010F670 /* icon-72.png */,
 				2F7F5D9514E7C3450010F670 /* icon.png */,
 				2F7F5D9614E7C3450010F670 /* icon@2x.png */,
@@ -741,6 +752,18 @@
 			name = NetWorkObject;
 			sourceTree = "<group>";
 		};
+		8303DF9F151CAF28009C6FC9 /* pics */ = {
+			isa = PBXGroup;
+			children = (
+				8303DFA7151CB449009C6FC9 /* heart.png */,
+				8303DFA8151CB449009C6FC9 /* more.png */,
+				8303DFA5151CB327009C6FC9 /* feed.png */,
+				8303DFA3151CB1D7009C6FC9 /* thumbView.png */,
+				8303DFA1151CAF48009C6FC9 /* tabbar_background.png */,
+			);
+			path = pics;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -847,6 +870,11 @@
 				2F7F5D9714E7C3450010F670 /* icon-72.png in Resources */,
 				2F7F5D9814E7C3450010F670 /* icon.png in Resources */,
 				2F7F5D9914E7C3450010F670 /* icon@2x.png in Resources */,
+				8303DFA2151CAF48009C6FC9 /* tabbar_background.png in Resources */,
+				8303DFA4151CB1D7009C6FC9 /* thumbView.png in Resources */,
+				8303DFA6151CB327009C6FC9 /* feed.png in Resources */,
+				8303DFA9151CB449009C6FC9 /* heart.png in Resources */,
+				8303DFAA151CB449009C6FC9 /* more.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -947,7 +975,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -964,7 +992,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -988,7 +1016,7 @@
 					"${SDK_DIR}/usr/include/libxml2/**",
 				);
 				INFOPLIST_FILE = "TwinDriveSystem/TwinDriveSystem-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1022,7 +1050,7 @@
 					"${SDK_DIR}/usr/include/libxml2/**",
 				);
 				INFOPLIST_FILE = "TwinDriveSystem/TwinDriveSystem-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",

@@ -42,6 +42,11 @@
                                                                                 size.width, 
                                                                                 size.height)];
     backgroundView.backgroundColor = [UIColor yellowColor];
+    
+    UIImage *backgroundImg = [UIImage imageNamed:@"tabbar_background"];
+    backgroundView.image = backgroundImg;
+    [backgroundImg release];
+    
     self.backgroundView = backgroundView;
     [backgroundView release];
     [self addSubview:self.backgroundView];    
@@ -50,7 +55,12 @@
                                                                            0.0f, 
                                                                            50.0, 
                                                                            size.height)];
-    thumbView.backgroundColor = [UIColor grayColor];
+    thumbView.backgroundColor = [UIColor clearColor];
+    
+    UIImage *thumbImg = [UIImage imageNamed:@"thumbView"];
+    thumbView.image = thumbImg;
+    [thumbImg release];
+    
     self.thumbView = thumbView;
     [thumbView release];
     [self addSubview:self.thumbView];
@@ -92,32 +102,32 @@
     [self.selectedTabs removeAllObjects];
     
     // initialization normal tabs view
-    UIImage *photoViewerImage = [UIImage imageNamed:@"photoViewerImage.png"];
+    UIImage *photoViewerImage = [UIImage imageNamed:@"feed.png"];
     UIImageView *photoViewerButton = [[UIImageView alloc] initWithImage:photoViewerImage];
     [self.normalTabs addObject:photoViewerButton];
     [photoViewerButton release];
     
-    UIImage *collectImage = [UIImage imageNamed:@"collectImage.png"];
+    UIImage *collectImage = [UIImage imageNamed:@"heart.png"];
     UIImageView *collectButton = [[UIImageView alloc] initWithImage:collectImage];
     [self.normalTabs addObject:collectButton];
     [collectButton release];
     
-    UIImage *aboutImage = [UIImage imageNamed:@"aboutImage.png"];
+    UIImage *aboutImage = [UIImage imageNamed:@"more.png"];
     UIImageView *aboutButton = [[UIImageView alloc] initWithImage:aboutImage];
     [self.normalTabs addObject:aboutButton];
     [aboutButton release];
     
-    UIImage *photoViewerImageHL = [UIImage imageNamed:@"photoViewerImage_hl.png"];
+    UIImage *photoViewerImageHL = [UIImage imageNamed:@"feed.png"];
     UIImageView *photoViewerHLButton = [[UIImageView alloc] initWithImage:photoViewerImageHL];
     [self.selectedTabs addObject:photoViewerHLButton];
     [photoViewerHLButton release];
     
-    UIImage *collectImageHL = [UIImage imageNamed:@"collectImage_hl.png"];
+    UIImage *collectImageHL = [UIImage imageNamed:@"heart.png"];
     UIImageView *collectHLButton = [[UIImageView alloc] initWithImage:collectImageHL];
     [self.selectedTabs addObject:collectHLButton];
     [collectHLButton release];
     
-    UIImage *aboutImageHL = [UIImage imageNamed:@"aboutImage_hl.png"];
+    UIImage *aboutImageHL = [UIImage imageNamed:@"more.png"];
     UIImageView *aboutHLButton = [[UIImageView alloc] initWithImage:aboutImageHL];
     [self.selectedTabs addObject:aboutHLButton];
     [aboutHLButton release];    
