@@ -7,13 +7,13 @@
 //
 
 #import "GNViewController.h"
+#import "TDSNetControlCenter.h"
+#import "TDSRequestObject.h"
 #import "TDSPhotoViewController.h"
 #import "TDSPhotoDataSource.h"
 #import "TDSPhotoView.h"
-#import "TDSNetControlCenter.h"
 #import "TDSMainScreenViewController.h"
-#import "TDSRequestObject.h"
-
+#import "TDSAboutViewController.h"
 @implementation GNViewController
 
 - (void)didReceiveMemoryWarning
@@ -27,18 +27,7 @@
     [_mainScreenViewController release];
     [super dealloc];
 }
-- (TDSPhotoDataSource *)testSource{
-    TDSPhotoView *photo = [[TDSPhotoView alloc] initWithImageURL:[NSURL URLWithString:@"http://ww3.sinaimg.cn/large/75ae7671jw1dpuzsrqhb9j.jpg"] name:@" laksd;lkas;dlkaslkd ;a"];
-    TDSPhotoView *photo2 = [[TDSPhotoView alloc] initWithImageURL:[NSURL URLWithString:@"http://pic13.nipic.com/20110307/6860000_151209260116_2.jpg"] name:@"Exia "];
-    TDSPhotoView *photo3 = [[TDSPhotoView alloc] initWithImageURL:[NSURL URLWithString:@"http://img3.douban.com/mpic/s3517475.jpg"] name:@"Music "];
-    TDSPhotoDataSource *source = [[TDSPhotoDataSource alloc] initWithPhotos:[NSArray arrayWithObjects:photo, photo2, photo3, nil]];
-    [photo release];
-    [photo2 release];
-    [photo3 release];
-    
-    return [source autorelease];
-    
-}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -47,27 +36,25 @@
 	TDSPhotoViewController *photoViewController = [[TDSPhotoViewController alloc] init];
     photoViewController.view.backgroundColor = [UIColor clearColor];
     
-    UIViewController *collectViewController = [[UIViewController alloc] init];
+    EGOPhotoViewController *collectViewController = [[EGOPhotoViewController alloc] initWithImage:[UIImage imageNamed:@"Default.png"]];
     collectViewController.view.backgroundColor = [UIColor redColor];
 
-    UIViewController *aboutViewController = [[UIViewController alloc] init];
+
+    TDSAboutViewController *aboutViewController = [[TDSAboutViewController alloc] init];
     aboutViewController.view.backgroundColor = [UIColor blueColor];
+    UINavigationController *navAboutViewController = [[UINavigationController alloc] initWithRootViewController:aboutViewController];     
+    navAboutViewController.navigationBar.tintColor = [UIColor blackColor];
+
     
     _mainScreenViewController = [[TDSMainScreenViewController alloc] init];
-    [_mainScreenViewController setViewControllers:[NSArray arrayWithObjects:photoViewController,collectViewController,aboutViewController, nil]];
+    [_mainScreenViewController setViewControllers:[NSArray arrayWithObjects:photoViewController,collectViewController,navAboutViewController, nil]];
     [self.view addSubview:_mainScreenViewController.view];
     
     [photoViewController release];    
 	[collectViewController release];    
 	[aboutViewController release];	
-    
-    // test ASIHttpRequest OK!!~
-//    TDSNetControlCenter *request = [[TDSNetControlCenter alloc] init];
-//    NSMutableDictionary *query = [NSMutableDictionary dictionary];
-//    [query setObject:@"0" forKey:@"start"];
-//    TDSRequestObject *requestObject = [TDSRequestObject requestObjectForQuery:query];
-//    [request sendRequestWithObject:requestObject];
-    
+
+    [navAboutViewController release];    
 }
 
 - (void)viewDidUnload

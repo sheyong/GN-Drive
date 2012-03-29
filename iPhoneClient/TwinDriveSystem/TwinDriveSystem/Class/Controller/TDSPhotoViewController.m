@@ -234,17 +234,7 @@
     NSURL *requestURL = [NSURL URLWithString:requestString];
     [self.photoViewNetControlCenter sendRequestWithObject:requestURL];
 }
-- (void)photosLoadMore:(BOOL)more ofSize:(NSInteger)index{
 
-    NSMutableDictionary *query = [NSMutableDictionary dictionary];
-    if (more) {
-        [query setObject:[NSNumber numberWithInt:index] forKey:@"start"];
-    }else{
-        [query setObject:@"0" forKey:@"start"];
-    }
-    TDSRequestObject *requestObject = [TDSRequestObject requestObjectForQuery:query];
-    [self.photoViewNetControlCenter sendRequestWithObject:requestObject];
-}
 - (void)updateByResponseDic:(NSMutableDictionary *)responseDic{
     NSString *actionString = [responseDic objectForKey:@"action"];
     if (actionString == nil || [actionString isEqualToString:@""]) {

@@ -13,7 +13,10 @@
 		2F0C573315241E0500E0B91F /* more.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F0C572E15241E0500E0B91F /* more.png */; };
 		2F0C573415241E0500E0B91F /* tabbar_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F0C572F15241E0500E0B91F /* tabbar_background.png */; };
 		2F0C573515241E0500E0B91F /* thumbView.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F0C573015241E0500E0B91F /* thumbView.png */; };
-		2F0C747214FF8BF400BF496C /* TDSRequestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0C747114FF8BF400BF496C /* TDSRequestObject.m */; };
+		2F0C575115242E2C00E0B91F /* TDSAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0C575015242E2C00E0B91F /* TDSAboutViewController.m */; };
+		2F0C576E15243F5E00E0B91F /* TDSPhotoViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0C576915243F5E00E0B91F /* TDSPhotoViewItem.m */; };
+		2F0C576F15243F5E00E0B91F /* TDSRequestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0C576B15243F5E00E0B91F /* TDSRequestObject.m */; };
+		2F0C577015243F5E00E0B91F /* TDSResponseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0C576D15243F5E00E0B91F /* TDSResponseObject.m */; };
 		2F0C74B514FFF92F00BF496C /* TDSLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0C74B414FFF92F00BF496C /* TDSLogger.m */; };
 		2F7F5B2414E7859F0010F670 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F7F5B2314E7859F0010F670 /* UIKit.framework */; };
 		2F7F5B2614E7859F0010F670 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F7F5B2514E7859F0010F670 /* Foundation.framework */; };
@@ -80,11 +83,9 @@
 		2F7F5D9914E7C3450010F670 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F7F5D9614E7C3450010F670 /* icon@2x.png */; };
 		2F8B058E14E96F36003731A4 /* libsbjson-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F8B057814E96BC5003731A4 /* libsbjson-ios.a */; };
 		2FB05F1414FD0B7200AD77AB /* TDSNetControlCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB05F1314FD0B7200AD77AB /* TDSNetControlCenter.m */; };
-		2FB05F1814FD0FF700AD77AB /* TDSResponseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB05F1714FD0FF700AD77AB /* TDSResponseObject.m */; };
 		2FB05F2114FD1F4E00AD77AB /* TDSMainScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB05F2014FD1F4E00AD77AB /* TDSMainScreenViewController.m */; };
 		2FB05F4114FD556D00AD77AB /* TDSMainScreenTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB05F4014FD556D00AD77AB /* TDSMainScreenTabBar.m */; };
 		2FB4DE1E15025D0200FC5D56 /* TDSPhotoDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB4DE1D15025D0200FC5D56 /* TDSPhotoDataSource.m */; };
-		2FFD71DB151880E90050DB12 /* TDSPhotoViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFD71DA151880E90050DB12 /* TDSPhotoViewItem.m */; };
 		2FFD7243151983A50050DB12 /* UIDevice+UIDeviceExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFD7242151983A50050DB12 /* UIDevice+UIDeviceExt.m */; };
 		2FFD72471519846F0050DB12 /* NSString+NSStringExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFD72461519846F0050DB12 /* NSString+NSStringExt.m */; };
 		2FFD7249151988FB0050DB12 /* TDSGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFD7248151988FB0050DB12 /* TDSGlobal.m */; };
@@ -137,8 +138,14 @@
 		2F0C572E15241E0500E0B91F /* more.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = more.png; sourceTree = "<group>"; };
 		2F0C572F15241E0500E0B91F /* tabbar_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbar_background.png; sourceTree = "<group>"; };
 		2F0C573015241E0500E0B91F /* thumbView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thumbView.png; sourceTree = "<group>"; };
-		2F0C747014FF8BF400BF496C /* TDSRequestObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSRequestObject.h; sourceTree = "<group>"; };
-		2F0C747114FF8BF400BF496C /* TDSRequestObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSRequestObject.m; sourceTree = "<group>"; };
+		2F0C574F15242E2C00E0B91F /* TDSAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSAboutViewController.h; sourceTree = "<group>"; };
+		2F0C575015242E2C00E0B91F /* TDSAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSAboutViewController.m; sourceTree = "<group>"; };
+		2F0C576815243F5E00E0B91F /* TDSPhotoViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSPhotoViewItem.h; sourceTree = "<group>"; };
+		2F0C576915243F5E00E0B91F /* TDSPhotoViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSPhotoViewItem.m; sourceTree = "<group>"; };
+		2F0C576A15243F5E00E0B91F /* TDSRequestObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSRequestObject.h; sourceTree = "<group>"; };
+		2F0C576B15243F5E00E0B91F /* TDSRequestObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSRequestObject.m; sourceTree = "<group>"; };
+		2F0C576C15243F5E00E0B91F /* TDSResponseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSResponseObject.h; sourceTree = "<group>"; };
+		2F0C576D15243F5E00E0B91F /* TDSResponseObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSResponseObject.m; sourceTree = "<group>"; };
 		2F0C74B314FFF92F00BF496C /* TDSLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSLogger.h; sourceTree = "<group>"; };
 		2F0C74B414FFF92F00BF496C /* TDSLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSLogger.m; sourceTree = "<group>"; };
 		2F7F5B1F14E7859F0010F670 /* TwinDriveSystem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwinDriveSystem.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -253,8 +260,6 @@
 		2F8B056914E96BC5003731A4 /* SBJson.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SBJson.xcodeproj; path = TwinDriveSystem/Dependencies/SBJson/SBJson.xcodeproj; sourceTree = "<group>"; };
 		2FB05F1214FD0B7200AD77AB /* TDSNetControlCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSNetControlCenter.h; sourceTree = "<group>"; };
 		2FB05F1314FD0B7200AD77AB /* TDSNetControlCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSNetControlCenter.m; sourceTree = "<group>"; };
-		2FB05F1614FD0FF700AD77AB /* TDSResponseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSResponseObject.h; sourceTree = "<group>"; };
-		2FB05F1714FD0FF700AD77AB /* TDSResponseObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSResponseObject.m; sourceTree = "<group>"; };
 		2FB05F1F14FD1F4E00AD77AB /* TDSMainScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSMainScreenViewController.h; sourceTree = "<group>"; };
 		2FB05F2014FD1F4E00AD77AB /* TDSMainScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSMainScreenViewController.m; sourceTree = "<group>"; };
 		2FB05F3B14FD509600AD77AB /* TDSGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSGlobal.h; sourceTree = "<group>"; };
@@ -262,8 +267,6 @@
 		2FB05F4014FD556D00AD77AB /* TDSMainScreenTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSMainScreenTabBar.m; sourceTree = "<group>"; };
 		2FB4DE1C15025D0200FC5D56 /* TDSPhotoDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSPhotoDataSource.h; sourceTree = "<group>"; };
 		2FB4DE1D15025D0200FC5D56 /* TDSPhotoDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSPhotoDataSource.m; sourceTree = "<group>"; };
-		2FFD71D9151880E90050DB12 /* TDSPhotoViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSPhotoViewItem.h; sourceTree = "<group>"; };
-		2FFD71DA151880E90050DB12 /* TDSPhotoViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSPhotoViewItem.m; sourceTree = "<group>"; };
 		2FFD7241151983A50050DB12 /* UIDevice+UIDeviceExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+UIDeviceExt.h"; sourceTree = "<group>"; };
 		2FFD7242151983A50050DB12 /* UIDevice+UIDeviceExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+UIDeviceExt.m"; sourceTree = "<group>"; };
 		2FFD72451519846F0050DB12 /* NSString+NSStringExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NSStringExt.h"; sourceTree = "<group>"; };
@@ -313,6 +316,37 @@
 			path = Image;
 			sourceTree = "<group>";
 		};
+		2F0C575215242E3F00E0B91F /* AboutViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2F0C574F15242E2C00E0B91F /* TDSAboutViewController.h */,
+				2F0C575015242E2C00E0B91F /* TDSAboutViewController.m */,
+			);
+			name = AboutViewController;
+			sourceTree = "<group>";
+		};
+		2F0C576715243F5E00E0B91F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2F0C577115243F7100E0B91F /* Network */,
+				2F0C576815243F5E00E0B91F /* TDSPhotoViewItem.h */,
+				2F0C576915243F5E00E0B91F /* TDSPhotoViewItem.m */,
+			);
+			name = Model;
+			path = Class/Model;
+			sourceTree = "<group>";
+		};
+		2F0C577115243F7100E0B91F /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				2F0C576A15243F5E00E0B91F /* TDSRequestObject.h */,
+				2F0C576B15243F5E00E0B91F /* TDSRequestObject.m */,
+				2F0C576C15243F5E00E0B91F /* TDSResponseObject.h */,
+				2F0C576D15243F5E00E0B91F /* TDSResponseObject.m */,
+			);
+			name = Network;
+			sourceTree = "<group>";
+		};
 		2F7F5B1414E7859F0010F670 = {
 			isa = PBXGroup;
 			children = (
@@ -351,11 +385,11 @@
 		2F7F5B2914E7859F0010F670 /* TwinDriveSystem */ = {
 			isa = PBXGroup;
 			children = (
-				2FB05F1514FD0FB800AD77AB /* Object */,
-				2FB05F1114FD0AB200AD77AB /* Tool */,
+				2F0C576715243F5E00E0B91F /* Model */,
 				2F7F5C5114E789730010F670 /* Controller */,
-				2F7F5C5414E789730010F670 /* Model */,
+				2F7F5C5214E789730010F670 /* DataSource */,
 				2F7F5C5514E789730010F670 /* View */,
+				2FB05F1114FD0AB200AD77AB /* Tool */,
 				2F7F5C5314E789730010F670 /* General */,
 				2F7F5B3214E7859F0010F670 /* AppDelegate.h */,
 				2F7F5B3314E7859F0010F670 /* AppDelegate.m */,
@@ -629,6 +663,7 @@
 			children = (
 				2FB05F2214FD1F5400AD77AB /* MainScreenViewController */,
 				2F7F5C6314E790220010F670 /* PhotoViewController */,
+				2F0C575215242E3F00E0B91F /* AboutViewController */,
 			);
 			name = Controller;
 			path = Class/Controller;
@@ -641,7 +676,7 @@
 				2FB4DE1D15025D0200FC5D56 /* TDSPhotoDataSource.m */,
 			);
 			name = DataSource;
-			path = ../DataSource;
+			path = Class/DataSource;
 			sourceTree = "<group>";
 		};
 		2F7F5C5314E789730010F670 /* General */ = {
@@ -659,15 +694,6 @@
 			path = Class/General;
 			sourceTree = "<group>";
 		};
-		2F7F5C5414E789730010F670 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				2F7F5C6F14E7918F0010F670 /* PhotoView */,
-			);
-			name = Model;
-			path = Class/Model;
-			sourceTree = "<group>";
-		};
 		2F7F5C5514E789730010F670 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -683,7 +709,6 @@
 			children = (
 				2F7F5C6814E790770010F670 /* TDSPhotoViewController.h */,
 				2F7F5C6914E790770010F670 /* TDSPhotoViewController.m */,
-				2F7F5C5214E789730010F670 /* DataSource */,
 			);
 			name = PhotoViewController;
 			sourceTree = "<group>";
@@ -693,13 +718,6 @@
 			children = (
 				2F7F5C6C14E790C50010F670 /* TDSPhotoView.h */,
 				2F7F5C6D14E790C50010F670 /* TDSPhotoView.m */,
-			);
-			name = PhotoView;
-			sourceTree = "<group>";
-		};
-		2F7F5C6F14E7918F0010F670 /* PhotoView */ = {
-			isa = PBXGroup;
-			children = (
 			);
 			name = PhotoView;
 			sourceTree = "<group>";
@@ -734,17 +752,6 @@
 			path = Class/Tool;
 			sourceTree = "<group>";
 		};
-		2FB05F1514FD0FB800AD77AB /* Object */ = {
-			isa = PBXGroup;
-			children = (
-				2FFD71DC151892070050DB12 /* NetWorkObject */,
-				2FFD71D9151880E90050DB12 /* TDSPhotoViewItem.h */,
-				2FFD71DA151880E90050DB12 /* TDSPhotoViewItem.m */,
-			);
-			name = Object;
-			path = Class/Object;
-			sourceTree = "<group>";
-		};
 		2FB05F2214FD1F5400AD77AB /* MainScreenViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -761,17 +768,6 @@
 				2FB05F4014FD556D00AD77AB /* TDSMainScreenTabBar.m */,
 			);
 			name = TabView;
-			sourceTree = "<group>";
-		};
-		2FFD71DC151892070050DB12 /* NetWorkObject */ = {
-			isa = PBXGroup;
-			children = (
-				2F0C747014FF8BF400BF496C /* TDSRequestObject.h */,
-				2F0C747114FF8BF400BF496C /* TDSRequestObject.m */,
-				2FB05F1614FD0FF700AD77AB /* TDSResponseObject.h */,
-				2FB05F1714FD0FF700AD77AB /* TDSResponseObject.m */,
-			);
-			name = NetWorkObject;
 			sourceTree = "<group>";
 		};
 		2FFD7244151983AC0050DB12 /* CocoaExt */ = {
@@ -945,16 +941,17 @@
 				2F7F5C6E14E790C50010F670 /* TDSPhotoView.m in Sources */,
 				2F021C6014E80B79003388B6 /* TDSConfig.m in Sources */,
 				2FB05F1414FD0B7200AD77AB /* TDSNetControlCenter.m in Sources */,
-				2FB05F1814FD0FF700AD77AB /* TDSResponseObject.m in Sources */,
 				2FB05F2114FD1F4E00AD77AB /* TDSMainScreenViewController.m in Sources */,
 				2FB05F4114FD556D00AD77AB /* TDSMainScreenTabBar.m in Sources */,
-				2F0C747214FF8BF400BF496C /* TDSRequestObject.m in Sources */,
 				2F0C74B514FFF92F00BF496C /* TDSLogger.m in Sources */,
 				2FB4DE1E15025D0200FC5D56 /* TDSPhotoDataSource.m in Sources */,
-				2FFD71DB151880E90050DB12 /* TDSPhotoViewItem.m in Sources */,
 				2FFD7243151983A50050DB12 /* UIDevice+UIDeviceExt.m in Sources */,
 				2FFD72471519846F0050DB12 /* NSString+NSStringExt.m in Sources */,
 				2FFD7249151988FB0050DB12 /* TDSGlobal.m in Sources */,
+				2F0C575115242E2C00E0B91F /* TDSAboutViewController.m in Sources */,
+				2F0C576E15243F5E00E0B91F /* TDSPhotoViewItem.m in Sources */,
+				2F0C576F15243F5E00E0B91F /* TDSRequestObject.m in Sources */,
+				2F0C577015243F5E00E0B91F /* TDSResponseObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
