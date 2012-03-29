@@ -43,9 +43,8 @@
                                                                                 size.height)];
     backgroundView.backgroundColor = [UIColor yellowColor];
     
-    UIImage *backgroundImg = [UIImage imageNamed:@"tabbar_background"];
+    UIImage *backgroundImg = [UIImage imageNamed:@"tabbar_background.png"];
     backgroundView.image = backgroundImg;
-    [backgroundImg release];
     
     self.backgroundView = backgroundView;
     [backgroundView release];
@@ -57,9 +56,8 @@
                                                                            size.height)];
     thumbView.backgroundColor = [UIColor clearColor];
     
-    UIImage *thumbImg = [UIImage imageNamed:@"thumbView"];
+    UIImage *thumbImg = [UIImage imageNamed:@"thumbView.png"];
     thumbView.image = thumbImg;
-    [thumbImg release];
     
     self.thumbView = thumbView;
     [thumbView release];
