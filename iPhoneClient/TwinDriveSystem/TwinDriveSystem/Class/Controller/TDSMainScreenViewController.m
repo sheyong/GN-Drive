@@ -7,7 +7,7 @@
 //
 
 #import "TDSMainScreenViewController.h"
-#import "TDSPhotoViewController.h"
+
 @interface TDSMainScreenViewController(Private)
 // 隐藏旧的界面
 - (void)hideOldViewController:(NSInteger)oldIndex;
